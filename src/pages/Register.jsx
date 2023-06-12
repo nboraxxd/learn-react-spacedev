@@ -1,54 +1,59 @@
 import React, { useState } from 'react'
 import { Field } from '../components/Field'
+import { useForm } from '../hooks/useForm'
 import { regexp, required, validate } from '../utils/validate'
 
 const RegisterPage = () => {
-  const [form, setForm] = useState({})
-  const [error, setError] = useState({})
-
-  const register = (name) => {
-    return {
-      error: error[name],
-      value: form[name] || '',
-      onChange: (event) => setForm({ ...form, [name]: event.target.value }),
-    }
-  }
+  const [isSuccess, setIsSuccess] = useState(false)
+  const { values, register, validate } = useForm({
+    name: [required('Please enter your full name')],
+    phone: [
+      required('Please enter your phone number'),
+      regexp('phone', 'Your phone number is not in the correct format'),
+    ],
+    email: [
+      required('Please enter your email address'),
+      regexp('email', 'Your email address is not in the correct format'),
+    ],
+    facebook: [
+      required('Please enter your Facebook URL'),
+      regexp(
+        /(?:https?:\/\/)?(?:www\.)?(mbasic.facebook|m\.facebook|facebook|fb)\.(com|me)\/(?:(?:\w\.)*#!\/)?(?:pages\/)?(?:[\w\-\.]*\/)*([\w\-\.]*)/,
+        'Your Facebook URL is not in the correct format'
+      ),
+    ],
+  })
 
   const onSubmit = () => {
-    const errorObject = validate(
-      {
-        name: [required('Please enter your full name')],
-        phone: [
-          required('Please enter your phone number'),
-          regexp('phone', 'Your phone number is not in the correct format'),
-        ],
-        email: [
-          required('Please enter your email address'),
-          regexp('email', 'Your email address is not in the correct format'),
-        ],
-        facebook: [
-          required('Please enter your facebook'),
-          regexp(
-            /(?:https?:\/\/)?(?:www\.)?(mbasic.facebook|m\.facebook|facebook|fb)\.(com|me)\/(?:(?:\w\.)*#!\/)?(?:pages\/)?(?:[\w\-\.]*\/)*([\w\-\.]*)/,
-            'Your Facebook URL is not in the correct format'
-          ),
-        ],
-      },
-      form
-    )
-
-    setError(errorObject)
-    if (Object.keys(errorObject).length === 0) {
-      console.log('Validate success')
+    if (validate()) {
+      console.log(values)
+      setIsSuccess(true)
     } else {
       console.log('Validate error')
     }
   }
 
   return (
-    <>
-      <main id="main">
-        <section className="register-course">
+    <main className="register-course" id="main">
+      {isSuccess ? (
+        <div className="register-success" style={{ margin: '40px auto' }}>
+          <div className="contain">
+            <div className="main-title">đăng ký thành công</div>
+            <p>
+              <strong>
+                Chào mừng {values.name} đã trở thành thành viên mới của Spacedev Team.
+              </strong>{' '}
+              <br />
+              Cảm ơn bạn đã đăng ký khoá học tại <strong>Spacedev</strong>, chúng tôi sẽ chủ động
+              liên lạc với bạn thông qua facebook hoặc số điện thoại của bạn.
+            </p>
+          </div>
+          <a href="/" className="btn main rect">
+            về trang chủ
+          </a>
+        </div>
+      ) : (
+        <section>
           <div className="container">
             <div className="wrap container">
               <div className="main-sub-title">ĐĂNG KÝ</div>
@@ -136,19 +141,8 @@ const RegisterPage = () => {
             </div>
           </div>
         </section>
-        {/* <div class="register-success">
-            <div class="contain">
-                <div class="main-title">đăng ký thành công</div>
-                <p>
-                    <strong>Chào mừng Vương Đặng đã trở thành thành viên mới của Spacedev Team.</strong> <br>
-                    Cảm ơn bạn đã đăng ký khoá học tại <strong>Spacedev</strong>, chúng tôi sẽ chủ động liên lạc với bạn thông qua facebook
-                    hoặc số điện thoại của bạn.
-                </p>
-            </div>
-            <a href="/" class="btn main rect">về trang chủ</a>
-        </div> */}
-      </main>
-    </>
+      )}
+    </main>
   )
 }
 

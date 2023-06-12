@@ -1,59 +1,34 @@
 import React, { useState } from 'react'
 import { Field } from '../components/Field'
+import { useForm } from '../hooks/useForm'
+import { regexp, required, validate } from '../utils/validate'
 
 const ContactPage = () => {
-  const [form, setForm] = useState({})
-  const [error, setError] = useState({})
+  const { values, validate, register } = useForm({
+    name: [required('Please enter your full name')],
 
-  const register = (name) => {
-    return {
-      error: error[name],
-      value: form[name] || '',
-      onChange: (event) => setForm({ ...form, [name]: event.target.value }),
-    }
-  }
+    phone: [
+      required('Please enter your phone number'),
+      regexp('phone', 'Your phone number is not in the correct format'),
+    ],
+
+    email: [
+      required('Please enter your email address'),
+      regexp('email', 'Your email address is not in the correct format'),
+    ],
+
+    website: [regexp('websiteUrl', 'Your website URL is not in the correct format')],
+
+    title: [required('Please enter your contact title')],
+
+    content: [required('Please fill in the content field')],
+  })
 
   const onSubmit = (e) => {
     e.preventDefault()
-    const errorObject = {}
 
-    // validate
-    if (!form.name?.trim()) {
-      errorObject.name = 'Please fill in your full name'
-    }
-
-    if (!form.phone?.trim()) {
-      errorObject.phone = 'Please fill in your phone number'
-    } else if (!/(84|0|[3|5|7|8|9])+([0-9]{8})\b/.test(form.phone?.trim())) {
-      errorObject.phone = 'Your phone number is not in the correct format'
-    }
-
-    if (!form.email?.trim()) {
-      errorObject.email = 'Please fill in your email address'
-    } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(form.email?.trim())) {
-      errorObject.email = 'Your email address is not in the correct format'
-    }
-
-    if (
-      form.website?.trim() &&
-      !/[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/.test(
-        form.website?.trim()
-      )
-    ) {
-      errorObject.website = 'Your website URL is not in the correct format'
-    }
-
-    if (!form.title?.trim()) {
-      errorObject.title = 'Please fill in contact title'
-    }
-
-    if (!form.content?.trim()) {
-      errorObject.content = 'Please fill in the content field'
-    }
-
-    setError(errorObject)
-    if (Object.keys(errorObject).length === 0) {
-      console.log('Validate success')
+    if (validate()) {
+      console.log(values)
     } else {
       console.log('Validate error')
     }
