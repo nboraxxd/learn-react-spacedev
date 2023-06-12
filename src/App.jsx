@@ -1,10 +1,17 @@
-import { useState } from 'react'
 import './assets/css/tailwind.css'
+import Footer from './components/Footer/Footer'
+import { Header } from './components/Header'
+import { ContactPage, RegisterPage } from './pages'
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return <div className='text-5xl text-pink-600'>app</div>
+  return (
+    <>
+      <Header />
+      {/* <ContactPage /> */}
+      <RegisterPage />
+      <Footer />
+    </>
+  )
 }
 
 export default App
