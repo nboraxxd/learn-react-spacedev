@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Page404 = () => {
+export const Page404 = () => {
   return (
     <main id="main">
       <div className="notfound">
@@ -17,5 +17,3 @@ const Page404 = () => {
     </main>
   )
 }
-
-export default Page404

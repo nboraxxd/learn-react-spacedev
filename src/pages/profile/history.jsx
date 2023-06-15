@@ -1,6 +1,6 @@
 import React from 'react'
 
-const MyHistory = () => {
+export const MyHistory = () => {
   return (
     <div className="tab6">
       <div className="list row">
@@ -56,5 +56,3 @@ const MyHistory = () => {
     </div>
   )
 }
-
-export default MyHistory

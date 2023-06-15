@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Project = () => {
+export const Project = () => {
   return (
     <main id="main">
       <div className="projectpage">
@@ -110,5 +110,3 @@ const Project = () => {
     </main>
   )
 }
-
-export default Project

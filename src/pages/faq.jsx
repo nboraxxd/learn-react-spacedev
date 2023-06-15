@@ -1,6 +1,6 @@
 import React from 'react'
 
-const FAQ = () => {
+export const FAQ = () => {
   return (
     <main id="main">
       <div className="faqpage">
@@ -93,5 +93,3 @@ const FAQ = () => {
     </main>
   )
 }
-
-export default FAQ

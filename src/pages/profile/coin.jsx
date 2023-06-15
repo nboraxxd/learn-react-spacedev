@@ -1,6 +1,6 @@
 import React from 'react'
 
-const MyCoin = () => {
+export const MyCoin = () => {
   return (
     <div className="tab5 cointab">
       <div className="coininfo">
@@ -108,5 +108,3 @@ const MyCoin = () => {
     </div>
   )
 }
-
-export default MyCoin
