@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ResetPassword = () => {
+export const ResetPassword = () => {
   return (
     <main id="main">
       <div className="auth">
@@ -19,5 +19,3 @@ const ResetPassword = () => {
     </main>
   )
 }
-
-export default ResetPassword

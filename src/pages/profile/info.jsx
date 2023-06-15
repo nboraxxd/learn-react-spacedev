@@ -1,6 +1,6 @@
 import React from 'react'
 
-const MyInfo = () => {
+export const MyInfo = () => {
   return (
     <div className="tab1">
       <label>
@@ -65,5 +65,3 @@ const MyInfo = () => {
     </div>
   )
 }
-
-export default MyInfo

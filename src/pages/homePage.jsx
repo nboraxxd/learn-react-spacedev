@@ -2,7 +2,7 @@ import React from 'react'
 import { CourseList } from '../components/CourseList'
 import { useScrollTop } from '../hooks/useScrollTop'
 
-const HomePage = () => {
+export const HomePage = () => {
   useScrollTop()
 
   return (
@@ -355,5 +355,3 @@ const HomePage = () => {
     </>
   )
 }
-
-export default HomePage

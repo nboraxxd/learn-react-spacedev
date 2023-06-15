@@ -10,7 +10,7 @@ const ErrorSpan = styled.span`
   font-size: 11px;
 `
 
-const Field = ({ label, required, type = 'text', renderInput, error, ...props }) => {
+export const Field = ({ label, required, type = 'text', renderInput, error, ...props }) => {
   return (
     <label className="relative">
       <p>
@@ -22,5 +22,3 @@ const Field = ({ label, required, type = 'text', renderInput, error, ...props })
     </label>
   )
 }
-
-export default Field

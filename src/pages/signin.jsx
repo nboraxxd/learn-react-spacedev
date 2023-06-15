@@ -1,15 +1,60 @@
 import React from 'react'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { PATH } from '../config/path'
+import { useForm } from '../hooks/useForm'
+import { regexp, required } from '../utils/validate'
 
-const SignIn = () => {
+export const SignIn = ({ login }) => {
+  console.log('re-render')
+  const navigate = useNavigate()
+  const { values, validate, register, errors } = useForm({
+    username: [
+      required('Please enter your email address / phone number'),
+      regexp('username', 'Your email address / phone number is not correct'),
+    ],
+
+    password: [
+      required('Please enter your password'),
+      regexp('password', 'Your password is not correct'),
+    ],
+  })
+
+  function onSubmit(event) {
+    event.preventDefault()
+
+    if (validate()) {
+      console.log(values)
+      login(values.username)
+      // navigate(PATH.home)
+    } else {
+      console.log('Validate error')
+    }
+  }
+
   return (
     <main id="main">
       <div className="auth">
         <div className="wrap">
           {/* login-form */}
-          <div className="ct_login">
+          <form className="ct_login" onSubmit={onSubmit}>
             <h2 className="title">Đăng nhập</h2>
-            <input type="text" placeholder="Email / Số điện thoại" />
-            <input type="password" placeholder="Mật khẩu" />
+            <div className="relative mb-[30px]">
+              <input type="text" placeholder="Email / Số điện thoại" {...register('username')} />
+              {errors.username && (
+                <span className="absolute top-full left-0 text-red-600 text-xs">
+                  {errors.username}
+                </span>
+              )}
+            </div>
+
+            <div className="relative mb-[30px]">
+              <input type="password" placeholder="Mật khẩu" {...register('password')} />
+              {errors.password && (
+                <span className="absolute top-full left-0 text-red-600 text-xs">
+                  {errors.password}
+                </span>
+              )}
+            </div>
             <div className="remember">
               <label className="btn-remember">
                 <div>
@@ -17,22 +62,20 @@ const SignIn = () => {
                 </div>
                 <p>Nhớ mật khẩu</p>
               </label>
-              <a href="./reset-password.html" className="forget">
+              <Link to={PATH.resetPassword} className="forget">
                 Quên mật khẩu?
-              </a>
+              </Link>
             </div>
             <button className="btn rect main btn-login">đăng nhập</button>
             <div className="text-register">
               <span>Nếu bạn chưa có tài khoản?</span>{' '}
-              <a className="link" href="./signup.html">
+              <Link className="link" to={PATH.signUp}>
                 Đăng ký
-              </a>
+              </Link>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </main>
   )
 }
-
-export default SignIn
