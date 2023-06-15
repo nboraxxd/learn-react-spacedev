@@ -1,9 +1,16 @@
 import React, { useState } from 'react'
-import { Field } from '../components/Field'
-import { useForm } from '../hooks/useForm'
-import { regexp, required, validate } from '../utils/validate'
+import { useParams } from 'react-router-dom'
+import { Field } from '../../components/Field'
+import { useForm } from '../../hooks/useForm'
+import { useScrollTop } from '../../hooks/useScrollTop'
+import { courseService } from '../../services/course'
+import { currency } from '../../utils/currency'
+import { regexp, required, validate } from '../../utils/validate'
 
-const RegisterPage = () => {
+export const Register = () => {
+  const { id } = useParams()
+  const [detail, setdetail] = useState(() => courseService.getCourseDetail(parseInt(id)))
+
   const [isSuccess, setIsSuccess] = useState(false)
   const { values, register, validate } = useForm({
     name: [required('Please enter your full name')],
@@ -23,6 +30,7 @@ const RegisterPage = () => {
       ),
     ],
   })
+  useScrollTop()
 
   const onSubmit = () => {
     if (validate()) {
@@ -57,7 +65,7 @@ const RegisterPage = () => {
           <div className="container">
             <div className="wrap container">
               <div className="main-sub-title">ĐĂNG KÝ</div>
-              <h1 className="main-title">Thực chiến ReactJS Advanced </h1>
+              <h1 className="main-title">{detail.title}</h1>
               <div className="main-info">
                 <div className="date">
                   <strong>Khai giảng:</strong> 15/11/2020
@@ -66,7 +74,7 @@ const RegisterPage = () => {
                   <strong>Thời lượng:</strong> 18 buổi
                 </div>
                 <div className="time">
-                  <strong>Học phí:</strong> 6,000,000 VND
+                  <strong>Học phí:</strong> {currency(detail.money)} VND
                 </div>
               </div>
               <div className="form">
@@ -145,5 +153,3 @@ const RegisterPage = () => {
     </main>
   )
 }
-
-export default RegisterPage

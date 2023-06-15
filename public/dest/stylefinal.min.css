@@ -1001,7 +1001,7 @@ strong {
   text-transform: uppercase;
   position: relative;
   top: -1px;
-  position: relative;
+  user-select: none;
 }
 #header .wrap .menu-hamburger:hover {
   background: #e0e0e0;

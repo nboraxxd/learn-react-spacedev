@@ -2064,6 +2064,93 @@ button {
   color: rgba(255, 255, 255, 0.15);
   display: none;
 }
+.checkcontainer {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.checkcontainer input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.checkcontainer input:checked ~ .checkmark {
+  background-color: #db3244;
+}
+.checkcontainer input:checked ~ .checkmark:after {
+  display: block;
+}
+.checkcontainer .checkmark {
+  position: absolute;
+  top: 1px;
+  left: 0;
+  height: 22px;
+  width: 22px;
+  background-color: #e0e0e0;
+}
+.checkcontainer .checkmark:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+.checkcontainer .checkmark:after {
+  left: 9px;
+  top: 4px;
+  width: 5px;
+  height: 12px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.checkcontainer:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+.checkcontainer:hover input:checked ~ .checkmark {
+  background-color: #db3244;
+}
+.checkcontainer input:checked ~ .checkmarkradio {
+  background-color: #db3244;
+}
+.checkcontainer input:checked ~ .checkmarkradio:after {
+  display: block;
+}
+.checkcontainer .checkmarkradio {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  height: 22px;
+  width: 22px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+.checkcontainer .checkmarkradio:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+.checkcontainer .checkmarkradio:hover input ~ .checkmarkradio {
+  background-color: #ccc;
+}
+.checkcontainer .checkmarkradio:after {
+  top: 8px;
+  left: 8px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+}
+.profile .tab .tab-content .cointab .coininfo__box-ct .checkcontainer:not(:last-child) {
+  padding-bottom: 10px;
+}
 .check-container {
   display: block;
   position: relative;
@@ -2522,7 +2609,7 @@ button {
   text-transform: uppercase;
   position: relative;
   top: -1px;
-  position: relative;
+  user-select: none;
 }
 #header .wrap .menu-hamburger:hover {
   background: #e0e0e0;

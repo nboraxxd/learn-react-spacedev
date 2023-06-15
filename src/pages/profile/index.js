@@ -1,0 +1,6 @@
+export { default as MyInfo } from './info'
+export { default as MyCourse } from './course'
+export { default as MyProject } from './project'
+export { default as MyPayment } from './payment'
+export { default as MyCoin } from './coin'
+export { default as MyHistory } from './history'
