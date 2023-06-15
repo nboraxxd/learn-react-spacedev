@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useRoutes } from 'react-router-dom'
 
 import { MainLayout, ProfileLayout } from './layouts'
 import {
@@ -16,12 +16,13 @@ import {
 } from './pages'
 import { MyCoin, MyCourse, MyHistory, MyInfo, MyPayment, MyProject } from './pages/profile'
 import { PATH } from './config/path'
-import './assets/css/tailwind.css'
 import { CourseDetail, Courses } from './pages/course'
 import { Register } from './pages/register'
 import { useEffect, useState } from 'react'
 import { PrivateRouter } from './components/PrivateRouter'
 import { AuthRouter } from './components/AuthRouter/AuthRouter'
+import './assets/css/tailwind.css'
+import { routers } from './routers'
 
 function App() {
   const [user, setUser] = useState(() => {
@@ -46,9 +47,12 @@ function App() {
     localStorage.setItem('user', JSON.stringify(user))
   }, [user])
 
+  const element = useRoutes(routers(user, login, logout))
+
   return (
     <>
-      <Routes>
+      {element}
+      {/* <Routes>
         <Route element={<MainLayout user={user} logout={logout} />}>
           <Route index element={<HomePage />} />
           <Route path={PATH.contact} element={<Contact />} />
@@ -84,7 +88,7 @@ function App() {
 
           <Route path={PATH.error404} element={<Page404 />} />
         </Route>
-      </Routes>
+      </Routes> */}
     </>
   )
 }
