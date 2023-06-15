@@ -3,7 +3,7 @@ import { Field } from '../components/Field'
 import { useForm } from '../hooks/useForm'
 import { regexp, required, validate } from '../utils/validate'
 
-const ContactPage = () => {
+const Contact = () => {
   const { values, validate, register } = useForm({
     name: [required('Please enter your full name')],
 
@@ -104,4 +104,4 @@ const ContactPage = () => {
   )
 }
 
-export default ContactPage
+export default Contact

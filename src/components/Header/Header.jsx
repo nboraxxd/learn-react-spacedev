@@ -1,11 +1,28 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { Link, NavLink, useLocation } from 'react-router-dom'
+import { PATH } from '../../config/path'
 
 const Header = () => {
+  const { pathname } = useLocation()
+  // console.log(pathname)
+
+  function onToggleMenu() {
+    document.body.classList.toggle('menu-is-show')
+  }
+
+  function onCloseMenu() {
+    document.body.classList.remove('menu-is-show')
+  }
+
+  useEffect(() => {
+    onCloseMenu()
+  }, [pathname])
+
   return (
     <>
       <header id="header">
         <div className="wrap">
-          <div className="menu-hamburger">
+          <div className="menu-hamburger" onClick={onToggleMenu}>
             <div className="button">
               <span />
               <span />
@@ -13,25 +30,25 @@ const Header = () => {
             </div>
             <span className="text">menu</span>
           </div>
-          <a href="./" className="logo">
-            <img src="img/logo.svg" alt="" />
+          <Link to="/" className="logo">
+            <img src="/img/logo.svg" alt="Spacedev" />
             <h1>Spacedev</h1>
-          </a>
+          </Link>
           <div className="right">
             <div className="have-login">
               <div className="account">
-                <a href="./profile.html" className="info">
+                <Link to={PATH.profile.index} className="info">
                   <div className="name">Đặng Thuyền Vương</div>
                   <div className="avatar">
-                    <img src="img/avt.png" alt="" />
+                    <img src="/img/avt.png" alt="" />
                   </div>
-                </a>
+                </Link>
               </div>
               <div className="hamburger"></div>
               <div className="sub">
-                <a href="#">Khoá học của tôi</a>
-                <a href="#">Thông tin tài khoản</a>
-                <a href="#">Đăng xuất</a>
+                <Link to={PATH.profile.course}>Khoá học của tôi</Link>
+                <Link to={PATH.profile.index}>Thông tin tài khoản</Link>
+                <a>Đăng xuất</a>
               </div>
             </div>
             {/* <div class="not-login bg-none">
@@ -44,37 +61,35 @@ const Header = () => {
       </header>
       <nav className="nav">
         <ul>
+          {/* <li>
+            <a href="./sign-in.html">Đăng ký/Đăng nhập</a>
+          </li> */}
           <li>
-            <a href="./sign-in.html">Đăng ký / Đăng nhập</a>
-          </li>
-          <li>
-            <a href="./profile.html" className="account">
+            <NavLink to={PATH.profile.index} className="account">
               <div className="avatar">
-                <img src="img/avt.png" alt="" />
+                <img src="/img/avt.png" alt="" />
               </div>
               <div className="name">Đặng Thuyền Vương</div>
-            </a>
+            </NavLink>
           </li>
           <li>
-            <a className="active" href="./">
-              Trang chủ
-            </a>
+            <NavLink to={PATH.home}>Trang chủ</NavLink>
           </li>
           <li>
-            <a href="./team.html">Spacedev Team</a>
+            <NavLink to={PATH.team}>Spacedev Team</NavLink>
           </li>
           <li>
-            <a href="./course-list.html">Khoá Học</a>
+            <NavLink to={PATH.courses}>Khoá Học</NavLink>
           </li>
           <li>
-            <a href="./project.html">Dự Án</a>
+            <NavLink to={PATH.project}>Dự Án</NavLink>
           </li>
           <li>
-            <a href="./contact.html">Liên hệ</a>
+            <NavLink to={PATH.contact}>Liên hệ</NavLink>
           </li>
         </ul>
       </nav>
-      <div className="overlay_nav" />
+      <div className="overlay_nav" onClick={onCloseMenu} />
     </>
   )
 }

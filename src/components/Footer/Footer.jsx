@@ -14,13 +14,13 @@ const Footer = () => {
               <p className="phone">(+84) 949 816 596</p>
               <div className="social">
                 <a href="#">
-                  <img src="img/fb-icon.png" alt="" />
+                  <img src="/img/fb-icon.png" alt="" />
                 </a>
                 <a href="#">
-                  <img src="img/email-icon.png" alt="" />
+                  <img src="/img/email-icon.png" alt="" />
                 </a>
                 <a href="#">
-                  <img src="img/skype-icon.png" alt="" />
+                  <img src="/img/skype-icon.png" alt="" />
                 </a>
               </div>
             </div>
@@ -53,9 +53,9 @@ const Footer = () => {
             <div className="flex gap-2">
               2020 spacedev.vn
               <div className="select flex gap-1 cursor-pointer items-center">
-                <img width={15} src="./img/icon-lang.svg" alt="" />
+                <img width={15} src="/img/icon-lang.svg" alt="" />
                 Tiếng Việt
-                <img src="./img/nav-caret.svg" style={{ marginTop: '13px' }} />
+                <img src="/img/nav-caret.svg" style={{ marginTop: '13px' }} />
               </div>
             </div>
             <p>Được thiết kế và lập trình bởi Spacedev Team</p>

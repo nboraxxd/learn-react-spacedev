@@ -59,9 +59,9 @@
       .text {
         font-size: $fz-text-up;
         text-transform: uppercase;
-        position: relative;
         top: -1px;
         position: relative;
+        user-select: none;
       }
       &:hover {
         background: $gray-cl;
