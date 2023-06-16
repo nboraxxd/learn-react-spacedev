@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { Field } from '../../components/Field'
 import { useForm } from '../../hooks/useForm'
 import { useScrollTop } from '../../hooks/useScrollTop'
-import { courseService } from '../../services/course'
+import { courseService } from '../../services/course.service'
 import { currency } from '../../utils/currency'
 import { regexp, required, validate } from '../../utils/validate'
 

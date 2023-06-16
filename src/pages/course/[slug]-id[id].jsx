@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { generatePath, Link, useParams, useSearchParams } from 'react-router-dom'
 import { PATH } from '../../config/path'
 import { useScrollTop } from '../../hooks/useScrollTop'
-import { courseService } from '../../services/course'
+import { courseService } from '../../services/course.service'
 import { currency } from '../../utils/currency'
 
 export const CourseDetail = () => {
