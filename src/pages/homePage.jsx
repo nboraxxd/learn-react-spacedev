@@ -105,10 +105,7 @@ export const HomePage = () => {
               </div>
               <div className="list row">
                 {loading
-                  ? Array.from(Array(6)).map((_, i) => (
-                      <CourseCardLoading key={i} />
-                      // </div>
-                    ))
+                  ? Array.from(Array(6)).map((_, i) => <CourseCardLoading key={i} />)
                   : course.map((item) => <CourseCard key={item.id} {...item} />)}
               </div>
               <div className="flex justify-center">

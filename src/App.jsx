@@ -23,6 +23,7 @@ import { PrivateRouter } from './components/PrivateRouter'
 import { AuthRouter } from './components/AuthRouter/AuthRouter'
 import './assets/css/tailwind.css'
 import { routers } from './routers'
+import './assets/css/custom.css'
 
 function App() {
   const [user, setUser] = useState(() => {
