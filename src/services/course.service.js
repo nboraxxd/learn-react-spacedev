@@ -139,14 +139,15 @@ const courseList = [
     thumbnailUrl:
       'https://images.unsplash.com/photo-1590608897129-79da98d15969?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGRldnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60',
   },
-];
+]
 
 export const courseService = {
   getCourse() {
-    return courseList;
+    // return courseList
+    return fetch('https://course.spacedev.vn/elearning/v4/courses')
   },
 
   getCourseDetail(id) {
-    return courseList.find(courseItem => courseItem.id === id);
+    return courseList.find((courseItem) => courseItem.id === id)
   },
-};
+}

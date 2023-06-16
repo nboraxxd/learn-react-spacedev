@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { CourseCard } from '../../components/CourseCard/CourseCard'
 import { CourseList } from '../../components/CourseList'
+import { courseService } from '../../services/course.service'
 
 export const Courses = () => {
+  const [course, setCourse] = useState(() => courseService.getCourse())
+
   return (
     <>
       <main id="main">
@@ -43,7 +47,11 @@ export const Courses = () => {
               </div>
             </div>
 
-            <CourseList />
+            <div className="list row">
+              {course.map((item) => (
+                <CourseCard key={item.id} {...item} />
+              ))}
+            </div>
 
             <div className="flex justify-end mt-10">
               <div className="paginate">

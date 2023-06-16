@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { courseService } from '../../services/course'
+import { courseService } from '../../services/course.service'
 import { CourseCard } from '../CourseCard/CourseCard'
 
 export const CourseList = () => {
