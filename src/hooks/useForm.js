@@ -6,14 +6,14 @@ import { validate } from '../utils/validate'
  * @returns values, errors, register, validate
  */
 export const useForm = (rules) => {
-  const [values, setForm] = useState({})
+  const [values, setValues] = useState({})
   const [errors, setError] = useState({})
 
   const register = (name) => {
     return {
       error: errors[name],
       value: values[name] || '',
-      onChange: (event) => setForm({ ...values, [name]: event.target.value }),
+      onChange: (event) => setValues({ ...values, [name]: event.target.value }),
     }
   }
 
@@ -24,10 +24,15 @@ export const useForm = (rules) => {
     return Object.keys(errorObject).length === 0
   }
 
+  const reset = () => {
+    setValues({})
+  }
+
   return {
     values,
     errors,
     register,
     validate: _validate,
+    reset,
   }
 }
