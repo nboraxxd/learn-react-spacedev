@@ -1,17 +1,21 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Field } from '../../components/Field'
+import { Skeleton } from '../../components/Skeleton/Skeleton'
+import { useFetch } from '../../hooks/useFetch'
 import { useForm } from '../../hooks/useForm'
 import { useScrollTop } from '../../hooks/useScrollTop'
 import { courseService } from '../../services/course.service'
 import { currency } from '../../utils/currency'
-import { regexp, required, validate } from '../../utils/validate'
+import { regexp, required } from '../../utils/validate'
+import { Page404 } from '../404'
 
 export const Register = () => {
   const { id } = useParams()
-  const [detail, setdetail] = useState(() => courseService.getCourseDetail(parseInt(id)))
-
   const [isSuccess, setIsSuccess] = useState(false)
+
+  useScrollTop()
+
   const { values, register, validate } = useForm({
     name: [required('Please enter your full name')],
     phone: [
@@ -30,7 +34,6 @@ export const Register = () => {
       ),
     ],
   })
-  useScrollTop()
 
   const onSubmit = () => {
     if (validate()) {
@@ -39,6 +42,18 @@ export const Register = () => {
     } else {
       console.log('Validate error')
     }
+  }
+
+  const { data, loading } = useFetch(() => courseService.getCourseDetail(parseInt(id)))
+
+  if (loading) {
+    return <RegisterLoading />
+  }
+
+  const { data: detail } = data
+
+  if (!detail) {
+    return <Page404 />
   }
 
   return (
@@ -150,6 +165,35 @@ export const Register = () => {
           </div>
         </section>
       )}
+    </main>
+  )
+}
+
+const RegisterLoading = () => {
+  return (
+    <main className="register-course" id="main">
+      <section>
+        <div className="container">
+          <div className="wrap container">
+            <div className="main-sub-title">
+              <Skeleton height={21} />
+            </div>
+            <h1 className="main-title">
+              <Skeleton height={53} />
+            </h1>
+            <div className="main-info">
+              <Skeleton height={21} />
+            </div>
+
+            <div className="form text-center">
+              {Array.from(Array(7)).map((_, i) => {
+                return <Skeleton className="mb-[25px]" height={55} width="80%" />
+              })}
+            </div>
+            <Skeleton height={54} />
+          </div>
+        </div>
+      </section>
     </main>
   )
 }

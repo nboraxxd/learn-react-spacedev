@@ -1,44 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { CourseCard, CourseCardLoading } from '../components/CourseCard/CourseCard'
 import { Skeleton } from '../components/Skeleton/Skeleton'
+import { useFetch } from '../hooks/useFetch'
 import { useScrollTop } from '../hooks/useScrollTop'
 import { courseService } from '../services/course.service'
 
 export const HomePage = () => {
-  const [loading, setLoading] = useState(true)
-  const [course, setCourse] = useState([])
   useScrollTop()
+  const { data: courses, loading } = useFetch(() => courseService.getCourse('?limit=6'))
 
-  useEffect(() => {
-    // setLoading(true)
-    // courseService
-    //   .getCourse()
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     setCourse(data.data)
-    //   })
-    // .catch(err => {
-
-    // })
-    //   .finally(() => {
-    //     setLoading(false)
-    //   })
-
-    ;(async () => {
-      try {
-        setLoading(true)
-        let res = await courseService.getCourse()
-        res = await res.json()
-        setCourse(res.data)
-      } catch (err) {
-      } finally {
-        setLoading(false)
-      }
-    })()
-  }, [])
-
-  console.log(course)
-
+  console.log(courses)
   return (
     <>
       <main id="main">
@@ -106,7 +77,7 @@ export const HomePage = () => {
               <div className="list row">
                 {loading
                   ? Array.from(Array(6)).map((_, i) => <CourseCardLoading key={i} />)
-                  : course.map((item) => <CourseCard key={item.id} {...item} />)}
+                  : courses.data.map((item) => <CourseCard key={item.id} {...item} />)}
               </div>
               <div className="flex justify-center">
                 <a href="./course-list.html" className="btn main">

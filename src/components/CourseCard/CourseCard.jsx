@@ -13,19 +13,19 @@ export const CourseCard = (props) => {
   return (
     <div className="col-md-4 course">
       <div className="wrap">
-        <Link className="cover" to="#">
+        <Link className="cover" to={pathDetail}>
           <img src={thumbnailUrl} alt={title} />
         </Link>
         <div className="info">
-          <Link className="name" to="#">
+          <Link className="name" to={pathDetail}>
             {title}
           </Link>
-          <p className="des">{short_description}</p>
+          <p className="des line-clamp-4">{short_description}</p>
         </div>
         <div className="bottom">
           <div className="teacher">
             <div className="avatar">
-              <img src="img/avt.png" alt="" />
+              <img src="/img/avt.png" alt="" />
             </div>
             <div className="name">Vương Đặng</div>
           </div>
@@ -42,7 +42,7 @@ export const CourseCardLoading = () => (
   <div className="col-md-4 course">
     <div className="wrap">
       <Link className="cover" to="#">
-        <Skeleton height={310} />
+        <Skeleton height="100%" />
       </Link>
       <div className="info">
         <Link className="name" to="#">

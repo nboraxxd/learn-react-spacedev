@@ -1,9 +1,13 @@
 import React from 'react'
-import { SkeletonStyle } from './style'
+import { SkeletonStyle } from './Skeleton.styles'
 
-export const Skeleton = ({ shap = 'rectangle', width, height, children }) => {
+export const Skeleton = ({ shap = 'rectangle', width, height, children, ...props }) => {
   return (
-    <SkeletonStyle className={shap} style={{ width, height }}>
+    <SkeletonStyle
+      {...props}
+      className={`${shap} ${props.className} ?? ''`}
+      style={{ width, height, ...props.style }}
+    >
       {children}
     </SkeletonStyle>
   )
