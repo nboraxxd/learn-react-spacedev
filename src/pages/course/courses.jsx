@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
-import { CourseCard } from '../../components/CourseCard/CourseCard'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { CourseCard, CourseCardLoading } from '../../components/CourseCard/CourseCard'
 import { CourseList } from '../../components/CourseList'
+import { useFetch } from '../../hooks/useFetch'
 import { courseService } from '../../services/course.service'
 
 export const Courses = () => {
-  const [course, setCourse] = useState(() => courseService.getCourse())
+  const { data: courses, loading } = useFetch(() => courseService.getCourse())
 
   return (
     <>
@@ -48,9 +50,9 @@ export const Courses = () => {
             </div>
 
             <div className="list row">
-              {course.map((item) => (
-                <CourseCard key={item.id} {...item} />
-              ))}
+              {loading
+                ? Array.from(Array(6)).map((_, i) => <CourseCardLoading key={i} />)
+                : courses.data.map((item) => <CourseCard key={item.id} {...item} />)}
             </div>
 
             <div className="flex justify-end mt-10">
