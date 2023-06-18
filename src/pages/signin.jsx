@@ -1,16 +1,16 @@
 import React from 'react'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { Button } from '../components/Button'
 import { PATH } from '../config/path'
 import { useForm } from '../hooks/useForm'
 import { regexp, required } from '../utils/validate'
 
 export const SignIn = ({ login }) => {
-  console.log('re-render')
   const navigate = useNavigate()
   const { values, validate, register, errors } = useForm({
     username: [
-      required('Please enter your email address / phone number'),
-      regexp('username', 'Your email address / phone number is not correct'),
+      required('Please enter your email address'),
+      regexp('username', 'Your email address is not correct'),
     ],
 
     password: [
@@ -39,22 +39,19 @@ export const SignIn = ({ login }) => {
           <form className="ct_login" onSubmit={onSubmit}>
             <h2 className="title">Đăng nhập</h2>
             <div className="relative mb-[30px]">
-              <input type="text" placeholder="Email / Số điện thoại" {...register('username')} />
-              {errors.username && (
-                <span className="absolute top-full left-0 text-red-600 text-xs">
-                  {errors.username}
-                </span>
+              <input type="text" placeholder="Email" {...register('username')} />
+              {errors.name && (
+                <span className="absolute top-full left-0 text-red-600 text-xs">{errors.name}</span>
               )}
             </div>
 
             <div className="relative mb-[30px]">
               <input type="password" placeholder="Mật khẩu" {...register('password')} />
-              {errors.password && (
-                <span className="absolute top-full left-0 text-red-600 text-xs">
-                  {errors.password}
-                </span>
+              {errors.name && (
+                <span className="absolute top-full left-0 text-red-600 text-xs">{errors.name}</span>
               )}
             </div>
+
             <div className="remember">
               <label className="btn-remember">
                 <div>
@@ -66,7 +63,11 @@ export const SignIn = ({ login }) => {
                 Quên mật khẩu?
               </Link>
             </div>
-            <button className="btn rect main btn-login">đăng nhập</button>
+
+            <Button loading={loading} className="mt-[20px]">
+              Đăng nhập
+            </Button>
+
             <div className="text-register">
               <span>Nếu bạn chưa có tài khoản?</span>{' '}
               <Link className="link" to={PATH.signUp}>

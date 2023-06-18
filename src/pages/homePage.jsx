@@ -142,17 +142,17 @@ export const HomePage = () => {
               </div>
             </div>
           </section>
-          {/* <section class="section-3">
-                <div class="container">
-                    <div class="video">
+          {/* <section className="section-3">
+                <div className="container">
+                    <div className="video">
                         <iframe id="video-intro"
                             src="https://www.youtube-nocookie.com/embed/6t-MjBazs3o?controls=0&showinfo=0&rel=0&enablejsapi=1&version=3&playerapiid=ytplayer"
                             frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen allowscriptaccess="always"></iframe>
     
-                        <div class="video-src" data-src="video/Spacedev-video-intro.mp4"></div>
-                        <div class="play-btn btn-video-intro">
+                        <div className="video-src" data-src="video/Spacedev-video-intro.mp4"></div>
+                        <div className="play-btn btn-video-intro">
                             <img src="img/play-video-btn.png" alt="">
                         </div>
                     </div>

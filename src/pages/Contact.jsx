@@ -7,11 +7,13 @@ import { message } from 'antd'
 import { PATH } from '../config/path'
 import { Link } from 'react-router-dom'
 import { Button } from '../components/Button'
+import { useAsync } from '../hooks/useAsync'
 
 export const Contact = () => {
-  const [loading, setLoading] = useState(false)
-  const [isSuccess, setIsSuccess] = useState(false)
   const [messageApi, contextHolder] = message.useMessage()
+
+  const { execute, loading, status } = useAsync(organizationService.contact)
+
   const { values, validate, register, reset } = useForm({
     name: [required('Please enter your full name')],
 
@@ -45,25 +47,16 @@ export const Contact = () => {
     try {
       e.preventDefault()
       if (validate()) {
-        setLoading(true)
-        const res = await organizationService.contact(values)
-
-        if (res.data.success) {
-          console.log(values)
-
-          // message.success('Bạn đã gởi liên hệ thành công')
+        const res = await execute(values)
+        
+        if (res.success) {
           success()
-          setIsSuccess(true)
-
-          // reset()
+          reset()
         }
       } else {
         console.log('Validate error')
       }
-    } catch (error) {
-    } finally {
-      setLoading(false)
-    }
+    } catch (error) {}
   }
 
   return (
@@ -71,10 +64,10 @@ export const Contact = () => {
       {contextHolder}
       <main id="main">
         <div className="register-course mb-[150px]">
-          {isSuccess ? (
-            <div class="register-success">
-              <div class="contain">
-                <div class="main-title">đăng ký thành công</div>
+          {status === 'success' ? (
+            <div className="register-success">
+              <div className="contain">
+                <div className="main-title">đăng ký thành công</div>
                 <p>
                   <strong>
                     Chào mừng Vương Đặng đã trở thành thành viên mới của Spacedev Team.
@@ -84,13 +77,13 @@ export const Contact = () => {
                   động liên lạc với bạn thông qua facebook hoặc số điện thoại của bạn.
                 </p>
               </div>
-              <Link to={PATH.home} class="btn main rect">
+              <Link to={PATH.home} className="btn main rect">
                 về trang chủ
               </Link>
             </div>
           ) : (
             <section className="section-1 wrap container">
-              {/* <div class="main-sub-title">liên hệ</div> */}
+              {/* <div className="main-sub-title">liên hệ</div> */}
               <h2 className="main-title">HỢP TÁC CÙNG SPACEDEV</h2>
               <p className="top-des">
                 Đừng ngần ngại liên hệ với <strong>Spacedev</strong> để cùng nhau tạo ra những sản
