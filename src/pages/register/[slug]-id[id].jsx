@@ -187,7 +187,7 @@ const RegisterLoading = () => {
 
             <div className="form text-center">
               {Array.from(Array(7)).map((_, i) => {
-                return <Skeleton className="mb-[25px]" height={55} width="80%" />
+                return <Skeleton key={i} className="mb-[25px]" height={55} width="80%" />
               })}
             </div>
             <Skeleton height={54} />
