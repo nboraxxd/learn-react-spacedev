@@ -1,22 +1,6 @@
-import { AuthRouter } from '../components/AuthRouter/AuthRouter'
-import { PrivateRouter } from '../components/PrivateRouter'
 import { PATH } from '../config/path'
-import { MainLayout, ProfileLayout } from '../layouts'
-import {
-  Coin,
-  Contact,
-  FAQ,
-  HomePage,
-  Page404,
-  Payment,
-  Project,
-  ResetPassword,
-  SignIn,
-  SignUp,
-  Team,
-} from '../pages'
-import { CourseDetail, Courses } from '../pages/course'
-import { MyCoin, MyCourse, MyHistory, MyInfo, MyPayment, MyProject } from '../pages/profile'
+import { MainLayout } from '../layouts'
+import { Coin, Contact, Demo, FAQ, HomePage, Page404, Payment, Project, Team } from '../pages'
 import { Register } from '../pages/register'
 import { auth } from './auth'
 import { courses } from './courses'
@@ -30,6 +14,8 @@ export const routers = (user, login, logout) => [
         index: true,
         element: <HomePage />,
       },
+
+      { path: '/demo', element: <Demo /> },
 
       {
         path: PATH.contact,

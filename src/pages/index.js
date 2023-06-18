@@ -1,4 +1,5 @@
 export * from './homePage'
+export * from './demo'
 export * from './contact'
 export * from './team'
 export * from './project'
