@@ -6,9 +6,9 @@ import { auth } from './auth'
 import { courses } from './courses'
 import { profile } from './profile'
 
-export const routers = (user, login, logout) => [
+export const routers = [
   {
-    element: <MainLayout user={user} logout={logout} />,
+    element: <MainLayout />,
     children: [
       {
         index: true,
@@ -54,9 +54,9 @@ export const routers = (user, login, logout) => [
         element: <Coin />,
       },
 
-      auth(user, login),
+      auth,
 
-      profile(user),
+      profile,
 
       {
         path: PATH.error404,

@@ -1,31 +1,42 @@
 import React from 'react'
+import { message } from 'antd'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { Button } from '../components/Button'
 import { PATH } from '../config/path'
 import { useForm } from '../hooks/useForm'
+import { authenticationService } from '../services/authentication.service'
 import { regexp, required } from '../utils/validate'
+import { useAsync } from '../hooks/useAsync'
+import { Input } from '../components/Input'
+import { useAuth } from '../components/AuthContext'
 
-export const SignIn = ({ login }) => {
-  const navigate = useNavigate()
-  const { values, validate, register, errors } = useForm({
+export const SignIn = () => {
+  const { signIn } = useAuth()
+  const { execute: SignInService, loading } = useAsync(signIn)
+
+  const form = useForm({
     username: [
       required('Please enter your email address'),
-      regexp('username', 'Your email address is not correct'),
+      regexp('email', 'Your email address is not correct format'),
     ],
 
     password: [
       required('Please enter your password'),
-      regexp('password', 'Your password is not correct'),
+      regexp('password', 'Your password is not correct format'),
     ],
   })
+  const { values, validate, register, errors } = form
 
-  function onSubmit(event) {
+  const _onSubmit = (event) => {
     event.preventDefault()
 
     if (validate()) {
-      console.log(values)
-      login(values.username)
-      // navigate(PATH.home)
+      const form = {
+        username: values.username.toLowerCase(),
+        password: values.password,
+      }
+
+      SignInService(form)
     } else {
       console.log('Validate error')
     }
@@ -36,21 +47,17 @@ export const SignIn = ({ login }) => {
       <div className="auth">
         <div className="wrap">
           {/* login-form */}
-          <form className="ct_login" onSubmit={onSubmit}>
+          <form className="ct_login" onSubmit={_onSubmit}>
             <h2 className="title">Đăng nhập</h2>
-            <div className="relative mb-[30px]">
-              <input type="text" placeholder="Email" {...register('username')} />
-              {errors.name && (
-                <span className="absolute top-full left-0 text-red-600 text-xs">{errors.name}</span>
-              )}
-            </div>
 
-            <div className="relative mb-[30px]">
-              <input type="password" placeholder="Mật khẩu" {...register('password')} />
-              {errors.name && (
-                <span className="absolute top-full left-0 text-red-600 text-xs">{errors.name}</span>
-              )}
-            </div>
+            <Input placeholder="Email" {...register('username')} error={errors.username} />
+
+            <Input
+              type="password"
+              placeholder="Mật khẩu"
+              {...register('password')}
+              error={errors.password}
+            />
 
             <div className="remember">
               <label className="btn-remember">

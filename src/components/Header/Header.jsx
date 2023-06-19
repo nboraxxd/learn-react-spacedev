@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
+import { avatarDefault } from '../../config'
 import { PATH } from '../../config/path'
+import { useAuth } from '../AuthContext'
 
-export const Header = ({ user, logout }) => {
+export const Header = () => {
   const { pathname } = useLocation()
-  // console.log(pathname)
+  const { user, logOut } = useAuth()
 
   function onToggleMenu() {
     document.body.classList.toggle('menu-is-show')
@@ -17,7 +19,7 @@ export const Header = ({ user, logout }) => {
   function _logout(e) {
     e.preventDefault()
 
-    logout()
+    logOut()
   }
 
   useEffect(() => {
@@ -45,9 +47,9 @@ export const Header = ({ user, logout }) => {
               <div className="have-login">
                 <div className="account">
                   <Link to={PATH.profile.index} className="info">
-                    <div className="name">Đặng Thuyền Vương</div>
+                    <div className="name">{user.name}</div>
                     <div className="avatar">
-                      <img src="/img/avt.png" alt="" />
+                      <img src={user.avatar ? user.avatar : avatarDefault} alt="" />
                     </div>
                   </Link>
                 </div>
