@@ -1,4 +1,4 @@
-import { api } from '../config/api'
+import { api, AUTHENTICATION_API } from '../config/api'
 
 export const authenticationService = {
   signIn(data) {

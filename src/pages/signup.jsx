@@ -1,6 +1,8 @@
 import { message } from 'antd'
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Button } from '../components/Button'
+import { PATH } from '../config/path'
 import { useAsync } from '../hooks/useAsync'
 import { useForm } from '../hooks/useForm'
 import { useScrollTop } from '../hooks/useScrollTop'
@@ -50,7 +52,7 @@ export const SignUp = () => {
     })
   }
 
-  async function onSubmit(event) {
+  async function _onSubmit(event) {
     try {
       event.preventDefault()
       if (validate()) {
@@ -63,6 +65,7 @@ export const SignUp = () => {
         const res = await signUp(form)
         if (res.success) {
           success(res.message)
+          reset()
         }
       } else {
         console.log('Validate error')
@@ -73,64 +76,81 @@ export const SignUp = () => {
       }
     }
   }
+  console.log(values)
 
   return (
     <>
       {contextHolder}
       <main id="main">
         <div className="auth">
-          <div className="wrap">
-            <h2 className="title">Đăng ký</h2>
-
-            <form onSubmit={onSubmit}>
-              <div className="relative mb-[30px]">
-                <input type="text" placeholder="Email" {...register('username')} />
-                {errors.username && (
-                  <span className="absolute top-full left-0 text-red-600 text-xs">
-                    {errors.username}
-                  </span>
-                )}
+          {status === 'success' ? (
+            <div className="register-success max-w-[690px] my-[150px] mx-auto bg-white">
+              <div className="contain p-[50px]">
+                <div className="main-title capitalize">Tạo tài khoản thành công</div>
+                <p className="text-center">
+                  <strong>Chào mừng bạn đã trở thành thành viên mới của Spacedev Team.</strong>{' '}
+                  <br />
+                  Bạn vui lòng kiểm tra email để kích hoạt tài khoản.
+                </p>
               </div>
+              <Link to={PATH.signIn} className="btn main rect w-full">
+                Đăng nhập
+              </Link>
+            </div>
+          ) : (
+            <div className="wrap">
+              <h2 className="title">Đăng ký</h2>
 
-              <div className="relative mb-[30px]">
-                <input placeholder="Họ và tên" {...register('name')} />
-                {errors.name && (
-                  <span className="absolute top-full left-0 text-red-600 text-xs">
-                    {errors.name}
-                  </span>
-                )}
-              </div>
+              <form onSubmit={_onSubmit}>
+                <div className="relative mb-[30px]">
+                  <input type="text" placeholder="Email" {...register('username')} />
+                  {errors.username && (
+                    <span className="absolute top-full left-0 text-red-600 text-xs">
+                      {errors.username}
+                    </span>
+                  )}
+                </div>
 
-              <div className="relative mb-[30px]">
-                <input type="password" placeholder="Mật khẩu" {...register('password')} />
-                {errors.password && (
-                  <span className="absolute top-full left-0 text-red-600 text-xs">
-                    {errors.password}
-                  </span>
-                )}
-              </div>
+                <div className="relative mb-[30px]">
+                  <input placeholder="Họ và tên" {...register('name')} />
+                  {errors.name && (
+                    <span className="absolute top-full left-0 text-red-600 text-xs">
+                      {errors.name}
+                    </span>
+                  )}
+                </div>
 
-              <div className="relative mb-[5px]">
-                <input
-                  type="password"
-                  placeholder="Nhập lại mật khẩu"
-                  {...register('confirmPassword')}
-                />
-                {errors.confirmPassword && (
-                  <span className="absolute top-full left-0 text-red-600 text-xs">
-                    {errors.confirmPassword}
-                  </span>
-                )}
-              </div>
+                <div className="relative mb-[30px]">
+                  <input type="password" placeholder="Mật khẩu" {...register('password')} />
+                  {errors.password && (
+                    <span className="absolute top-full left-0 text-red-600 text-xs">
+                      {errors.password}
+                    </span>
+                  )}
+                </div>
 
-              <p className="policy">
-                Bằng việc đăng kí, bạn đã đồng ý <a href="#">Điều khoản bảo mật</a> của Spacedev
-              </p>
-              <Button loading={loading} className="mt-[30px]">
-                Đăng ký
-              </Button>
-            </form>
-          </div>
+                <div className="relative mb-[5px]">
+                  <input
+                    type="password"
+                    placeholder="Nhập lại mật khẩu"
+                    {...register('confirmPassword')}
+                  />
+                  {errors.confirmPassword && (
+                    <span className="absolute top-full left-0 text-red-600 text-xs">
+                      {errors.confirmPassword}
+                    </span>
+                  )}
+                </div>
+
+                <p className="policy">
+                  Bằng việc đăng kí, bạn đã đồng ý <a href="#">Điều khoản bảo mật</a> của Spacedev
+                </p>
+                <Button loading={loading} className="mt-[30px]">
+                  Đăng ký
+                </Button>
+              </form>
+            </div>
+          )}
         </div>
       </main>
     </>
