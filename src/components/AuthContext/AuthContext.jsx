@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
         navigate(PATH.home)
       }
     } catch (err) {
-      console.log(err)
+      console.error(err)
       if (err?.response?.data?.message) {
         message.error(err.response.data.message)
       }
