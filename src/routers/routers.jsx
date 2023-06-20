@@ -1,6 +1,6 @@
 import { PATH } from '../config/path'
 import { MainLayout } from '../layouts'
-import { Coin, Contact, Demo, FAQ, HomePage, Page404, Payment, Project, Team } from '../pages'
+import { Coin, Contact, Demo, DemoRef, FAQ, HomePage, Page404, Payment, Project, Team } from '../pages'
 import { Register } from '../pages/register'
 import { auth } from './auth'
 import { courses } from './courses'
@@ -16,6 +16,8 @@ export const routers = [
       },
 
       { path: '/demo', element: <Demo /> },
+
+      { path: '/demo-ref', element: <DemoRef /> },
 
       {
         path: PATH.contact,
