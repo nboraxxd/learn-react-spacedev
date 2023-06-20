@@ -121,9 +121,8 @@ export const HomePage = () => {
                       height="472.5"
                       src="https://www.youtube.com/embed/FN7ALfpGxiI"
                       title="YouTube video player"
-                      frameborder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowfullscreen
+                      allowFullScreen
                     />
                   </Modal>
                 </div>
