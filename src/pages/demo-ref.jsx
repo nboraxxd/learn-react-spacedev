@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useId, useRef, useState } from 'react'
 import { Field } from '../components/Field'
 
 /**
- * 
+ *
  * Cách 1: Lưu trữ giá trị không bị thay đổi sau mỗi component re-render
  *
  * Cách 2: Selector HTML DOM
@@ -14,13 +14,16 @@ import { Field } from '../components/Field'
  */
 
 export const DemoRef = () => {
+  const inputNameId = useId()
+  const inputEmailId = useId()
   const inputRef = useRef()
 
   useEffect(() => {
     inputRef.current.setValue('0987654321')
   }, [])
 
-  console.log(inputRef.current)
+  console.log(inputNameId)
+  console.log(inputEmailId)
   return (
     <main id="main">
       <div className="register-course">
@@ -37,7 +40,7 @@ export const DemoRef = () => {
               <p>
                 Họ và tên<span>*</span>
               </p>
-              <input type="text" placeholder="Họ và tên bạn" />
+              <input id={inputNameId} type="text" placeholder="Họ và tên bạn" />
             </label>
             <Field
               ref={inputRef}
@@ -49,7 +52,7 @@ export const DemoRef = () => {
               <p>
                 Email<span>*</span>
               </p>
-              <input type="text" placeholder="Email của bạn" />
+              <input id={inputEmailId} type="text" placeholder="Email của bạn" />
             </label>
             <label>
               <p>Website</p>
