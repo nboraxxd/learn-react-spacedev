@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { CourseCard, CourseCardLoading } from '../components/CourseCard/CourseCard'
-import { Skeleton } from '../components/Skeleton/Skeleton'
+import { CourseCard, CourseCardLoading } from '../components/CourseCard'
+import { Modal } from '../components/Modal'
+import { Skeleton } from '../components/Skeleton'
+import { VideoModal } from '../components/VideoModal'
 import { useFetch } from '../hooks/useFetch'
 import { useScrollTop } from '../hooks/useScrollTop'
 import { courseService } from '../services/course.service'
 
 export const HomePage = () => {
+  const [isOpenVideoModal, setIsOpenVideoModal] = useState(false)
+
   useScrollTop()
   const { data: courses, loading } = useFetch(() => courseService.getCourse('?limit=6'))
 
@@ -94,7 +98,11 @@ export const HomePage = () => {
                   <h2 className="main-title white textleft">
                     <span>Giá trị Cốt lỗi</span> <br /> tại Spacedev
                   </h2>
-                  <div className="videodif" data-src="video/cfd-video-intro.mp4">
+                  <div
+                    className="videodif"
+                    // data-src="video/cfd-video-intro.mp4"
+                    onClick={() => setIsOpenVideoModal(true)}
+                  >
                     <img
                       src="https://svtech.com.vn/wp-content/uploads/2020/07/dexus-office-space.jpg"
                       alt=""
@@ -103,13 +111,21 @@ export const HomePage = () => {
                       <img src="img/play-icon.svg" alt="" />
                     </div>
                   </div>
-                  <div className="item" style={{ marginTop: '35px' }}>
-                    <h4>Sáng tạo và đơn giản</h4>
-                    <p>
-                      Spacedev đề cao những sáng tạo đơn giản thay đổi thế giới, gia tăng năng suất
-                      và cải thiện cuộc sống.
-                    </p>
-                  </div>
+                  <Modal
+                    maskCloseTable
+                    visible={isOpenVideoModal}
+                    onClose={() => setIsOpenVideoModal(false)}
+                  >
+                    <iframe
+                      width="840"
+                      height="472.5"
+                      src="https://www.youtube.com/embed/FN7ALfpGxiI"
+                      title="YouTube video player"
+                      frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowfullscreen
+                    />
+                  </Modal>
                 </div>
                 <div className="contentbox col-md-6 col-sm-12 col-xs-12">
                   <div className="item">
@@ -138,6 +154,13 @@ export const HomePage = () => {
                       sáng lập nền tảng spacedev.vn.
                     </p>
                   </div>
+                  <div className="item">
+                    <h4>Sáng tạo và đơn giản</h4>
+                    <p>
+                      Spacedev đề cao những sáng tạo đơn giản thay đổi thế giới, gia tăng năng suất
+                      và cải thiện cuộc sống.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -146,14 +169,14 @@ export const HomePage = () => {
                 <div className="container">
                     <div className="video">
                         <iframe id="video-intro"
-                            src="https://www.youtube-nocookie.com/embed/6t-MjBazs3o?controls=0&showinfo=0&rel=0&enablejsapi=1&version=3&playerapiid=ytplayer"
+                            src="https://www.youtube-nocookie.com/embed/30KI5SuECuc?controls=0&showinfo=0&rel=0&enablejsapi=1&version=3&playerapiid=ytplayer"
                             frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen allowscriptaccess="always"></iframe>
     
                         <div className="video-src" data-src="video/Spacedev-video-intro.mp4"></div>
                         <div className="play-btn btn-video-intro">
-                            <img src="img/play-video-btn.png" alt="">
+                            <img src="img/play-video-btn.png" alt="" />
                         </div>
                     </div>
                 </div>
