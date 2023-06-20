@@ -2738,7 +2738,7 @@ strong {
   justify-content: space-between;
   align-items: center;
   position: relative;
-  margin-bottom: 3px;
+  /* margin-bottom: 3px; */
   margin-top: 10px;
   text-transform: none;
   cursor: pointer;

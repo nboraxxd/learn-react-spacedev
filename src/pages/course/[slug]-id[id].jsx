@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { generatePath, Link, useParams } from 'react-router-dom'
 import { Accordion } from '../../components/Accordion'
 import { CourseCard } from '../../components/CourseCard/CourseCard'
@@ -11,7 +11,6 @@ import { currency } from '../../utils/currency'
 
 export const CourseDetail = () => {
   const { id } = useParams()
-  const [activeAccordion, setActiveAccordion] = useState(-1)
 
   useScrollTop([id])
   const { data, loading } = useFetch(() => courseService.getCourseDetail(parseInt(id)), [id])
@@ -25,13 +24,6 @@ export const CourseDetail = () => {
   if (!detail) return <div style={{ margin: '100px 0' }}>Not Found...</div>
 
   const registerPath = generatePath(PATH.courseRegister, { slug: detail.slug, id: detail.id })
-
-  const onClickAccordion = (activeAccordion, i) => {
-    if (activeAccordion === i) {
-      return setActiveAccordion(-1)
-    }
-    return setActiveAccordion(i)
-  }
 
   return (
     <main className="course-detail" id="main">
@@ -76,17 +68,13 @@ export const CourseDetail = () => {
             <img src="/img/course-detail-img.png" alt="" />
           </div>
           <h3 className="title">nội dung khóa học</h3>
-          {detail.content &&
-            detail.content.map((e, i) => (
-              <Accordion
-                key={i}
-                date={i + 1}
-                {...e}
-                children={e.content}
-                active={activeAccordion === i}
-                onClick={() => onClickAccordion(activeAccordion, i)}
-              />
+          <Accordion.Group>
+            {detail.content.map((e, i) => (
+              <Accordion key={i} date={i + 1} {...e}>
+                {e.content}
+              </Accordion>
             ))}
+          </Accordion.Group>
           <h3 className="title">yêu cầu cần có</h3>
           <div className="row row-check">
             <div className="col-md-6">Đã từng học qua HTML, CSS</div>
