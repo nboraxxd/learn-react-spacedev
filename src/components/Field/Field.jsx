@@ -1,39 +1,20 @@
-import React, { forwardRef, useImperativeHandle, useRef } from 'react'
-import { styled } from 'styled-components'
+import React from 'react'
 
-const ErrorSpan = styled.span`
-  position: absolute;
-  left: 230px;
-  top: 100%;
-  color: red;
-  font-style: italic;
-  font-size: 11px;
-`
-
-export const Field = forwardRef(
-  ({ label, required, type = 'text', renderInput, error, ...props }, ref) => {
-    const inputRef = useRef()
-    useImperativeHandle(
-      ref,
-      () => {
-        return {
-          setValue: (value) => {
-            inputRef.current.value = value
-          },
-        }
-      },
-      []
-    )
-
-    return (
-      <label className="relative">
-        <p>
-          {label}
-          {required && <span>*</span>}
-        </p>
-        {renderInput ? renderInput?.(props) : <input ref={inputRef} {...props} type={type} />}
-        {error && <ErrorSpan>{error}</ErrorSpan>}
-      </label>
-    )
-  }
+export const Field = ({
+  label,
+  required,
+  type = 'text',
+  renderInput,
+  error,
+  errorPosition = '230px',
+  ...props
+}) => (
+  <label className="relative">
+    <p>
+      {label}
+      {required && <span>*</span>}
+    </p>
+    {renderInput ? renderInput?.(props) : <input {...props} type={type} />}
+    {error && <span className={`absolute left-[${errorPosition}] top-full text-red-600 italic text-[11px]`}>{error}</span>}
+  </label>
 )

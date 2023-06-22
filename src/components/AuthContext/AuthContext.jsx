@@ -14,13 +14,16 @@ export const AuthProvider = ({ children }) => {
   const [user, _setUser] = useState(getUser)
   const navigate = useNavigate()
 
+  useEffect(() => {
+    setUser(user || null)
+  }, [user])
+
   const signIn = async (data) => {
     try {
       const res = await authenticationService.signIn(data)
       if (res.data) {
         setToken(res.data)
         const user = await userService.getProfile()
-        setUser(user.data)
         _setUser(user.data)
         message.success('Đăng nhập tài khoản thành công', 5)
         navigate(PATH.home)
@@ -39,5 +42,9 @@ export const AuthProvider = ({ children }) => {
     message.success('Đăng xuất tài khoản thành công', 5)
   }
 
-  return <AuthContext.Provider value={{ user, signIn, logOut }}>{children}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider value={{ user, signIn, logOut, setUser: _setUser }}>
+      {children}
+    </AuthContext.Provider>
+  )
 }
