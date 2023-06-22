@@ -46,12 +46,12 @@ export const Header = () => {
             {user ? (
               <div className="have-login">
                 <div className="account">
-                  <Link to={PATH.profile.index} className="info">
+                  <div className="info cursor-pointer">
                     <div className="name">{user.name}</div>
                     <div className="avatar">
                       <img src={user.avatar ? user.avatar : avatarDefault} alt="" />
                     </div>
-                  </Link>
+                  </div>
                 </div>
                 <div className="hamburger"></div>
                 <div className="sub">
