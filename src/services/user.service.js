@@ -5,8 +5,8 @@ export const userService = {
     return api.post(`${USER_API}/register`, data)
   },
 
-  resendEmail(username) {
-    return api.post(`${USER_API}/resend-email`, username)
+  resendEmail(data) {
+    return api.post(`${USER_API}/resend-email`, data)
   },
 
   getProfile() {
@@ -15,5 +15,13 @@ export const userService = {
 
   updateInfo(data) {
     return api.patch(`${USER_API}`, data)
+  },
+
+  sendEmailResetPassword(data) {
+    return api.post(`${USER_API}/reset-password`, data)
+  },
+
+  resetPasswordByCode(data) {
+    return api.post(`${USER_API}/change-password-by-code`, data)
   },
 }
