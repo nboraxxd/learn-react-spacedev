@@ -1,4 +1,4 @@
-import { message } from 'antd'
+import { notification } from '@/utils/message'
 import classNames from 'classnames'
 import React from 'react'
 import { Link } from 'react-router-dom'
@@ -21,7 +21,7 @@ export const SignUp = () => {
   const { values, validate, register, errors } = useForm({
     username: [
       required('Please enter your email address'),
-      regexp('username', 'Your email address is not in the correct format'),
+      regexp('email', 'Your email address is not in the correct format'),
     ],
 
     name: [
@@ -50,7 +50,7 @@ export const SignUp = () => {
 
         const res = await signUpService(form)
         if (res.success) {
-          message.success(res.message, 5)
+          notification.success(res.message, 5)
         }
       } else {
         console.log('Validate error')
@@ -58,7 +58,7 @@ export const SignUp = () => {
     } catch (err) {
       console.error(err)
       if (err.response?.data?.message) {
-        message.error(err.response.data.message, 5)
+        notification.error(err.response.data.message, 5)
       }
     }
   }
@@ -69,11 +69,11 @@ export const SignUp = () => {
 
     try {
       const response = await resendEmailService({ username: values.username.toLowerCase() })
-      message.success(response.message)
+      notification.success(response.message)
     } catch (err) {
       console.error(err)
       if (err.response?.data?.message) {
-        message.error(err.response.data.message, 5)
+        notification.error(err.response.data.message)
       }
     }
   }

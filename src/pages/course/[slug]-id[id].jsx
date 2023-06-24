@@ -1,5 +1,5 @@
 import { Modal } from '@/components/Modal'
-import Teacher from '@/components/Teacher'
+import { Teacher } from '@/components/Teacher'
 import moment from 'moment/moment'
 import React, { useState } from 'react'
 import { generatePath, Link, useParams } from 'react-router-dom'

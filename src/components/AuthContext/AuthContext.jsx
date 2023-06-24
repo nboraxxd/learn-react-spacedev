@@ -1,6 +1,7 @@
+import { notification } from '@/utils/message'
 import { message } from 'antd'
 import { createContext, useContext, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { PATH } from '../../config/path'
 import { authenticationService } from '../../services/authentication.service'
 import { userService } from '../../services/user.service'
@@ -13,6 +14,7 @@ export const useAuth = () => useContext(AuthContext)
 export const AuthProvider = ({ children }) => {
   const [user, _setUser] = useState(getUser)
   const navigate = useNavigate()
+  const { state } = useLocation()
 
   useEffect(() => {
     setUser(user || null)
@@ -28,7 +30,7 @@ export const AuthProvider = ({ children }) => {
     } catch (err) {
       console.error(err)
       if (err?.response?.data?.message) {
-        message.error(err.response.data.message)
+        notification.error(err.response.data.message)
       }
     }
   }
@@ -36,15 +38,19 @@ export const AuthProvider = ({ children }) => {
   const getProfile = async () => {
     const user = await userService.getProfile()
     _setUser(user.data)
-    message.success('Đăng nhập tài khoản thành công', 5)
-    navigate(PATH.home)
+    notification.success('Đăng nhập tài khoản thành công')
+    if (state?.redirect) {
+      navigate(state.redirect)
+    } else {
+      navigate(PATH.home)
+    }
   }
 
   const logOut = () => {
     _setUser(null)
     clearToken()
     clearUser()
-    message.success('Đăng xuất tài khoản thành công', 5)
+    notification.success('Đăng xuất tài khoản thành công', 5)
   }
 
   return (
