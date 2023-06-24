@@ -5,8 +5,8 @@ import { useAsync } from '@/hooks/useAsync'
 import { useForm } from '@/hooks/useForm'
 import { userService } from '@/services/user.service'
 import { handleError } from '@/utils/handleError'
+import { notification } from '@/utils/message'
 import { confirm, minMax, regexp, required } from '@/utils/validate'
-import { message } from 'antd'
 import React, { useState } from 'react'
 
 export const MyInfo = () => {
@@ -53,7 +53,7 @@ export const MyInfo = () => {
         const res = await updateInfoService(values)
         console.log(res)
         setUser(res.data)
-        message.success('Bạn đã cập nhật thông tin tài khoản thành công', 5)
+        notification.success('Bạn đã cập nhật thông tin tài khoản thành công')
       } else {
         console.log('Validate error')
       }
@@ -71,6 +71,7 @@ export const MyInfo = () => {
         errorPosition="210px"
         placeholder="Bruce Wayne"
         {...register('name')}
+        // className=''
       />
       {/* email */}
       <Field label="Email" disabled {...register('username')} />
@@ -86,7 +87,7 @@ export const MyInfo = () => {
         label="Facebook"
         errorPosition="210px"
         placeholder="Facebook URL"
-        {...register('facebook')}
+        {...register('fb')}
       />
       {/* change password checkbox */}
       {/* <label>

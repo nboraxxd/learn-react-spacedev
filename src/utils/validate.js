@@ -43,8 +43,13 @@ export const validate = (rules, forms) => {
   const errorObject = {}
   for (let name in rules) {
     for (let rule of rules[name]) {
-      if (rule.required && !forms[name]?.trim()) {
-        errorObject[name] = rule.message || ERROR_MESSAGE.required
+      if (rule.required) {
+        if (
+          (typeof forms[name] === 'boolean' && !forms[name]) ||
+          (typeof forms[name] !== 'boolean' && !forms[name]?.trim())
+        ) {
+          errorObject[name] = rule.message || ERROR_MESSAGE.required
+        }
       }
 
       if (rule.min || rule.max) {
@@ -54,7 +59,7 @@ export const validate = (rules, forms) => {
       }
 
       let regexp = rule.regexp
-      if (forms[name]?.trim() && regexp) {
+      if (regexp && forms[name]?.trim()) {
         if (regexp in REGEXP) {
           regexp = REGEXP[regexp]
         }

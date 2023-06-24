@@ -16,7 +16,6 @@ export const HomePage = () => {
   useScrollTop()
   const { data: courses, loading } = useFetch(() => courseService.getCourse('?limit=6'))
 
-  console.log(courses)
   return (
     <>
       <main id="main">

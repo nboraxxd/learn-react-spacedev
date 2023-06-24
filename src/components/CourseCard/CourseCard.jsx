@@ -5,10 +5,9 @@ import { currency } from '../../utils/currency'
 import { Skeleton } from '../Skeleton/Skeleton'
 
 export const CourseCard = (props) => {
-  const { id, money, long_description, short_description, slug, title, thumbnailUrl } = props
+  const { id, money, short_description, slug, title, thumbnailUrl } = props
   const pathDetail = generatePath(PATH.courseDetail, { slug, id })
   const pathRegister = generatePath(PATH.courseRegister, { slug, id })
-  // console.log(PATH.courseDetail, pathDetail)
 
   return (
     <div className="col-md-4 course">
@@ -29,7 +28,7 @@ export const CourseCard = (props) => {
             </div>
             <div className="name">Vương Đặng</div>
           </div>
-          <Link to="#" className="register-btn">
+          <Link to={pathRegister} className="register-btn">
             {currency(money)} VND
           </Link>
         </div>
