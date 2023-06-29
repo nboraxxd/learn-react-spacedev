@@ -2,8 +2,7 @@ import { PATH } from '@/config/path'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export const Page404 = ({ children }) => {
-  console.log('🥴 ~ Page404 ~ children:', children)
+const Page404 = ({ children }) => {
   return (
     <main id="main">
       <div className="notfound">
@@ -20,3 +19,5 @@ export const Page404 = ({ children }) => {
     </main>
   )
 }
+
+export default Page404

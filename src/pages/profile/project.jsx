@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const MyProject = () => {
+const MyProject = () => {
   return (
     <div className="tab3">
       <div className="row">
@@ -61,3 +61,5 @@ export const MyProject = () => {
     </div>
   )
 }
+
+export default MyProject

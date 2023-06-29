@@ -1,16 +1,14 @@
 import React from 'react'
-import { message } from 'antd'
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Button } from '../components/Button'
 import { PATH } from '../config/path'
 import { useForm } from '../hooks/useForm'
-import { authenticationService } from '../services/authentication.service'
 import { regexp, required } from '../utils/validate'
 import { useAsync } from '../hooks/useAsync'
 import { Input } from '../components/Input'
 import { useAuth } from '../components/AuthContext'
 
-export const SignIn = () => {
+const SignIn = () => {
   const { signIn } = useAuth()
   const { execute: SignInService, loading } = useAsync(signIn)
 
@@ -87,3 +85,5 @@ export const SignIn = () => {
     </main>
   )
 }
+
+export default SignIn

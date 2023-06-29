@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 import { Button } from '../components/Button'
 import { useAsync } from '../hooks/useAsync'
 
-export const Contact = () => {
+const Contact = () => {
   const [messageApi, contextHolder] = message.useMessage()
 
   const { execute, loading, status } = useAsync(organizationService.contact)
@@ -142,3 +142,5 @@ export const Contact = () => {
     </>
   )
 }
+
+export default Contact

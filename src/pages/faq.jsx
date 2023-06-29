@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Accordion2, Accordion } from '../components/Accordion'
 
-export const FAQ = () => {
+const FAQ = () => {
   // const [activeAccordionInfo, setActiveAccordionInfo] = useState(-1)
   // const [activeAccordionRegister, setActiveAccordionRegister] = useState(-1)
 
@@ -102,3 +102,5 @@ export const FAQ = () => {
     </main>
   )
 }
+
+export default FAQ

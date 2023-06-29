@@ -17,9 +17,9 @@ import { useScrollTop } from '../../hooks/useScrollTop'
 import { courseService } from '../../services/course.service'
 import { currency } from '../../utils/currency'
 import { regexp, required } from '../../utils/validate'
-import { Page404 } from '../404'
+import Page404 from '../404'
 
-export const Register = () => {
+const Register = () => {
   const { id } = useParams()
   const { user } = useAuth()
   const navigate = useNavigate()
@@ -239,3 +239,5 @@ const RegisterLoading = () => {
     </main>
   )
 }
+
+export default Register

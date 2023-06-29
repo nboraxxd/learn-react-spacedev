@@ -9,7 +9,7 @@ import { notification } from '@/utils/message'
 import { confirm, minMax, regexp, required } from '@/utils/validate'
 import React, { useState } from 'react'
 
-export const MyInfo = () => {
+const MyInfo = () => {
   // const [isChangePassword, setIsChangePassword] = useState(false)
 
   const { user, setUser } = useAuth()
@@ -136,3 +136,5 @@ export const MyInfo = () => {
     </div>
   )
 }
+
+export default MyInfo

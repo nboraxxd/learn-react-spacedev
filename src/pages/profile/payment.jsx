@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const MyPayment = () => {
+const MyPayment = () => {
   return (
     <div className="tab4">
       <div className="item itemhistory">
@@ -34,3 +34,5 @@ export const MyPayment = () => {
     </div>
   )
 }
+
+export default MyPayment

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Team = () => {
+const Team = () => {
   return (
     <main id="main">
       <section className="team">
@@ -141,3 +141,5 @@ export const Team = () => {
     </main>
   )
 }
+
+export default Team

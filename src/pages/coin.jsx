@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Coin = () => {
+const Coin = () => {
   return (
     <main id="main">
       <div className="paypage">
@@ -93,3 +93,5 @@ export const Coin = () => {
     </main>
   )
 }
+
+export default Coin

@@ -6,7 +6,7 @@ import moment from 'moment/moment'
 import React from 'react'
 import { generatePath, Link } from 'react-router-dom'
 
-export const MyCourse = () => {
+const MyCourse = () => {
   const { data: courses, loading } = useFetch(courseService.getMyCourse)
 
   if (loading)
@@ -68,3 +68,5 @@ export const MyCourse = () => {
     </div>
   )
 }
+
+export default MyCourse
