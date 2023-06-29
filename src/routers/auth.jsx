@@ -2,8 +2,8 @@ import React, { lazy } from 'react'
 import { AuthRouter } from '../components/AuthRouter/AuthRouter'
 import { PATH } from '../config/path'
 
-const SignUp = lazy(() => import('@/pages/signup'))
-const SignIn = lazy(() => import('@/pages/signin'))
+const SignUp = lazy(() => import('@/pages/signUp'))
+const SignIn = lazy(() => import('@/pages/signIn'))
 const ResetPassword = lazy(() => import('@/pages/reset-password'))
 
 export const auth = {
