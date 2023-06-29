@@ -4,7 +4,7 @@ import { Button } from '../components/Button'
 
 const CountContext = createContext({})
 
-export const Demo = () => {
+const Demo = () => {
   const [count, setCount] = useState(0)
 
   const onIncre = () => {
@@ -65,3 +65,5 @@ const Count = () => {
     </CountStyle>
   )
 }
+
+export default Demo

@@ -11,7 +11,7 @@ import { useScrollTop } from '../hooks/useScrollTop'
 import { userService } from '../services/user.service'
 import { confirm, minMax, regexp, required } from '../utils/validate'
 
-export const SignUp = () => {
+const SignUp = () => {
   const { execute: signUpService, loading, status } = useAsync(userService.signUp)
   const { execute: resendEmailService, loading: resendEmailLoading } = useAsync(
     userService.resendEmail
@@ -144,3 +144,5 @@ export const SignUp = () => {
     </main>
   )
 }
+
+export default SignUp

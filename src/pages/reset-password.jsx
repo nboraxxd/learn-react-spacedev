@@ -12,7 +12,7 @@ import { PATH } from '@/config/path'
 import { setToken } from '@/utils/token'
 import { useAuth } from '@/components/AuthContext'
 
-export const ResetPassword = () => {
+const ResetPassword = () => {
   const [searchParams] = useSearchParams()
   const code = searchParams.get('code')
   const navigate = useNavigate()
@@ -119,3 +119,5 @@ export const ResetPassword = () => {
     </main>
   )
 }
+
+export default ResetPassword

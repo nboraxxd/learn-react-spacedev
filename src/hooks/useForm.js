@@ -18,10 +18,10 @@ export const useForm = (rules, initialValues = {}) => {
         if (rules[name]) {
           const error = validate({ [name]: rules[name] }, _values)
 
-          setError({ ...errors, [name]: error[name] || '' })
+          setError((prev) => ({ ...prev, [name]: error[name] || '' }))
         }
 
-        setValues(_values)
+        setValues((prev) => ({ ...prev, [name]: event.target.value }))
       },
     }
   }

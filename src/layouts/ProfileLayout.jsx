@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { Navigate, NavLink, Outlet } from 'react-router-dom'
 import { useAuth } from '../components/AuthContext'
 import { avatarDefault } from '../config'
 import { PATH } from '../config/path'
 
-export const ProfileLayout = () => {
+const ProfileLayout = () => {
   const { user } = useAuth()
 
   return (
@@ -32,7 +32,9 @@ export const ProfileLayout = () => {
               <NavLink to={PATH.profile.history}>Khóa học đã xem</NavLink>
             </div>
             <div className="tab-content">
-              <Outlet />
+              <Suspense fallback={<div>Profile loading...</div>}>
+                <Outlet />
+              </Suspense>
             </div>
           </div>
         </div>
@@ -40,3 +42,5 @@ export const ProfileLayout = () => {
     </main>
   )
 }
+
+export default ProfileLayout

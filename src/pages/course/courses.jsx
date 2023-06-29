@@ -1,12 +1,16 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import { useQuery } from '@/hooks/useQuery'
+import React from 'react'
 import { CourseCard, CourseCardLoading } from '../../components/CourseCard/CourseCard'
-import { CourseList } from '../../components/CourseList'
 import { useFetch } from '../../hooks/useFetch'
 import { courseService } from '../../services/course.service'
 
-export const Courses = () => {
-  const { data: courses, loading } = useFetch(() => courseService.getCourse())
+const Courses = () => {
+  // const { data: courses, loading } = useFetch(() => courseService.getCourse())
+  const { data: courses = {}, loading } = useQuery({
+    queryFn: () => courseService.getCourse(),
+    queryKey: 'courses-list',
+    cacheTime: 10000,
+  })
 
   return (
     <>
@@ -86,3 +90,5 @@ export const Courses = () => {
     </>
   )
 }
+
+export default Courses

@@ -1,7 +1,8 @@
 import { Modal } from '@/components/Modal'
 import { Teacher } from '@/components/Teacher'
+import { useQuery } from '@/hooks/useQuery'
 import moment from 'moment/moment'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { generatePath, Link, useParams } from 'react-router-dom'
 import { Accordion } from '../../components/Accordion'
 import { CourseCard } from '../../components/CourseCard'
@@ -11,25 +12,50 @@ import { useFetch } from '../../hooks/useFetch'
 import { useScrollTop } from '../../hooks/useScrollTop'
 import { courseService } from '../../services/course.service'
 import { currency } from '../../utils/currency'
-import { Page404 } from '../404'
+import Page404 from '../404'
 
-export const CourseDetail = () => {
+const CourseDetail = () => {
   const [isOpenVideoModal, setIsOpenVideoModal] = useState(false)
   const { id } = useParams()
 
   useScrollTop([id])
-  const { data, loading } = useFetch(() => courseService.getCourseDetail(parseInt(id)), [id])
-  const { data: related } = useFetch(() => courseService.getCourseRelated(parseInt(id)), [id])
+  // const { data: { data: detail } = {}, loading } = useFetch(
+  //   () => courseService.getCourseDetail(parseInt(id)), [id]
+  // )
+  const { data: { data: detail } = {}, loading } = useQuery({
+    queryFn: () => courseService.getCourseDetail(parseInt(id)),
+    queryKey: `course-${id}`,
+    storeDriver: 'sessionStorage',
+    cacheTime: 10000,
+    // dependencyList: [id],
+  })
+  // const { data: related } = useFetch(() => courseService.getCourseRelated(parseInt(id)), [id])
+
+  const { data: { data: related = [] } = {} } = useQuery({
+    queryFn: () => courseService.getCourseRelated(parseInt(id)),
+    queryKey: `course-related-${id}`,
+    storeDriver: 'sessionStorage',
+    cacheTime: 10000,
+  })
+
+  const { registerPath, openingTime } = useMemo(() => {
+    if (detail) {
+      const registerPath = generatePath(PATH.courseRegister, { slug: detail.slug, id: detail.id })
+      const openingTime = moment(detail.opening_time).format('DD/MM/YYYY')
+      return {
+        registerPath,
+        openingTime,
+      }
+    }
+
+    return {}
+  }, [detail])
 
   if (loading) {
     return <CourseDetailLoading />
   }
 
-  const { data: detail } = data
   if (!detail) return <Page404>Không tìm thấy khoá học</Page404>
-
-  const registerPath = generatePath(PATH.courseRegister, { slug: detail.slug, id: detail.id })
-  const openingTime = moment(detail.opening_time).format('DD/MM/YYYY')
 
   return (
     <main className="course-detail" id="main">
@@ -153,7 +179,7 @@ export const CourseDetail = () => {
           </div>
           <div className="list row">
             {related &&
-              related.data.map((item) => {
+              related.map((item) => {
                 return <CourseCard key={item.id} {...item} />
               })}
           </div>
@@ -210,3 +236,5 @@ const CourseDetailLoading = () => (
     </section>
   </main>
 )
+
+export default CourseDetail

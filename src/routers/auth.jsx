@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { lazy } from 'react'
 import { AuthRouter } from '../components/AuthRouter/AuthRouter'
 import { PATH } from '../config/path'
-import { ResetPassword, SignIn, SignUp } from '../pages'
+
+const SignUp = lazy(() => import('@/pages/signup'))
+const SignIn = lazy(() => import('@/pages/signin'))
+const ResetPassword = lazy(() => import('@/pages/reset-password'))
 
 export const auth = {
   element: <AuthRouter redirect={PATH.home} />,

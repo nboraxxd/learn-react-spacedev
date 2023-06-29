@@ -1,20 +1,24 @@
-import React, { useEffect, useState } from 'react'
+import { useQuery } from '@/hooks/useQuery'
+import { useState } from 'react'
 import { CourseCard, CourseCardLoading } from '../components/CourseCard'
 import { HeroSlider } from '../components/HeroSlider'
 import { Modal } from '../components/Modal'
-import { Skeleton } from '../components/Skeleton'
 import { TeamGallery } from '../components/TeamGallery'
 import { Testimonial } from '../components/Testimonial'
-import { VideoModal } from '../components/VideoModal'
 import { useFetch } from '../hooks/useFetch'
 import { useScrollTop } from '../hooks/useScrollTop'
 import { courseService } from '../services/course.service'
 
-export const HomePage = () => {
+const HomePage = () => {
   const [isOpenVideoModal, setIsOpenVideoModal] = useState(false)
-
   useScrollTop()
-  const { data: courses, loading } = useFetch(() => courseService.getCourse('?limit=6'))
+
+  const { data: courses = {}, loading } = useQuery({
+    queryFn: () => courseService.getCourse('?limit=6'),
+    queryKey: 'courses',
+    cacheTime: 10000,
+  })
+  // const { data: courses, loading } = useFetch(() => courseService.getCourse('?limit=6'))
 
   return (
     <>
@@ -136,3 +140,5 @@ export const HomePage = () => {
     </>
   )
 }
+
+export default HomePage

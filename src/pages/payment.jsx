@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Payment = () => {
+const Payment = () => {
   return (
     <main id="main">
       <div className="paypage">
@@ -69,3 +69,5 @@ export const Payment = () => {
     </main>
   )
 }
+
+export default Payment
