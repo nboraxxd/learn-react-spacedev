@@ -1,15 +1,53 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Button } from '../components/Button'
 import { PATH } from '../config/path'
 import { useForm } from '../hooks/useForm'
 import { regexp, required } from '../utils/validate'
 import { useAsync } from '../hooks/useAsync'
 import { Input } from '../components/Input'
-import { useAuth } from '../components/AuthContext'
+import { useDispatch } from 'react-redux'
+import { userService } from '@/services/user.service'
+import { handleError } from '@/utils/handleError'
+import { authenticationService } from '@/services/authentication.service'
+import { notification } from '@/utils/message'
+import { setToken, setUser } from '@/utils/token'
+import { setUserAction } from '@/stores/actions'
 
 const SignIn = () => {
-  const { signIn } = useAuth()
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { state } = useLocation()
+
+  const getProfile = async () => {
+    try {
+      const user = await userService.getProfile()
+
+      dispatch(setUserAction(user.data))
+      setUser(user.data)
+      notification.success('Đăng nhập tài khoản thành công')
+      if (state?.redirect) {
+        navigate(state.redirect)
+      } else {
+        navigate(PATH.home)
+      }
+    } catch (error) {
+      handleError(error)
+    }
+  }
+
+  const signIn = async (data) => {
+    try {
+      const res = await authenticationService.signIn(data)
+      if (res.data) {
+        setToken(res.data)
+        await getProfile()
+      }
+    } catch (error) {
+      handleError(error)
+    }
+  }
+
   const { execute: SignInService, loading } = useAsync(signIn)
 
   const form = useForm({

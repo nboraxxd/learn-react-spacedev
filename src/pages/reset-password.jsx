@@ -4,19 +4,22 @@ import { useAsync } from '@/hooks/useAsync'
 import { useForm } from '@/hooks/useForm'
 import { userService } from '@/services/user.service'
 import { regexp, required, confirm } from '@/utils/validate'
-import React from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import React, { useCallback } from 'react'
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { handleError } from '@/utils/handleError'
 import { message } from 'antd'
 import { PATH } from '@/config/path'
-import { setToken } from '@/utils/token'
-import { useAuth } from '@/components/AuthContext'
+import { setToken, setUser } from '@/utils/token'
+import { useDispatch } from 'react-redux'
+import { setUserAction } from '@/stores/actions'
+import { notification } from '@/utils/message'
 
 const ResetPassword = () => {
   const [searchParams] = useSearchParams()
   const code = searchParams.get('code')
   const navigate = useNavigate()
-  const { getProfile } = useAuth()
+  const dispatch = useDispatch()
+  const { state } = useLocation()
 
   const {
     execute: sendEmailResetPasswordService,
@@ -53,6 +56,23 @@ const ResetPassword = () => {
     }
   }
 
+  const getProfile = async () => {
+    try {
+      const user = await userService.getProfile()
+
+      dispatch(setUserAction(user.data))
+      setUser(user.data)
+      notification.success('Đăng nhập tài khoản thành công')
+      if (state?.redirect) {
+        navigate(state.redirect)
+      } else {
+        navigate(PATH.home)
+      }
+    } catch (error) {
+      handleError(error)
+    }
+  }
+
   const onResetPasswordByCode = async () => {
     try {
       if (resetPasswordByCodeForm.validate()) {
@@ -61,7 +81,7 @@ const ResetPassword = () => {
           code,
         })
         setToken(res.data)
-        getProfile()
+        await getProfile()
       }
     } catch (error) {
       handleError(error)

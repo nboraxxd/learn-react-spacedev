@@ -3,6 +3,7 @@ import { routers } from './routers'
 import './assets/css/tailwind.css'
 import './assets/css/custom.css'
 import { Suspense } from 'react'
+import '@/stores'
 
 function App() {
   const element = useRoutes(routers)

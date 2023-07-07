@@ -1,18 +1,20 @@
-import { useAuth } from '@/components/AuthContext'
 import { Button } from '@/components/Button'
 import { Field } from '@/components/Field'
 import { useAsync } from '@/hooks/useAsync'
 import { useForm } from '@/hooks/useForm'
 import { userService } from '@/services/user.service'
+import { setUserAction } from '@/stores/actions'
+import { userSelector } from '@/stores/selectors'
 import { handleError } from '@/utils/handleError'
 import { notification } from '@/utils/message'
 import { confirm, minMax, regexp, required } from '@/utils/validate'
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 const MyInfo = () => {
   // const [isChangePassword, setIsChangePassword] = useState(false)
-
-  const { user, setUser } = useAuth()
+  const dispatch = useDispatch()
+  const user = useSelector(userSelector)
   const { execute: updateInfoService, loading } = useAsync(userService.updateInfo)
   const { values, validate, register } = useForm(
     {
@@ -52,7 +54,7 @@ const MyInfo = () => {
       if (validate()) {
         const res = await updateInfoService(values)
         console.log(res)
-        setUser(res.data)
+        dispatch(setUserAction(res.data))
         notification.success('Bạn đã cập nhật thông tin tài khoản thành công')
       } else {
         console.log('Validate error')

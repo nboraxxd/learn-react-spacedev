@@ -1,4 +1,3 @@
-import { useAuth } from '@/components/AuthContext'
 import { Button } from '@/components/Button'
 import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import { Field } from '../components/Field'
@@ -21,7 +20,6 @@ const fibonacci = (n) => {
 }
 
 const DemoRef = () => {
-  const {} = useAuth()
   console.log('re-render')
 
   // const [render, setRender] = useState(0)

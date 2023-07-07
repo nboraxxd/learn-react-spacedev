@@ -1,12 +1,17 @@
+import { logoutAction } from '@/stores/actions'
+import { userSelector } from '@/stores/selectors'
+import { notification } from '@/utils/message'
+import { clearToken, clearUser } from '@/utils/token'
 import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { avatarDefault } from '../../config'
 import { PATH } from '../../config/path'
-import { useAuth } from '../AuthContext'
 
 export const Header = () => {
   const { pathname } = useLocation()
-  const { user, logOut } = useAuth()
+  const dispatch = useDispatch()
+  const user = useSelector(userSelector)
 
   function onToggleMenu() {
     document.body.classList.toggle('menu-is-show')
@@ -16,10 +21,13 @@ export const Header = () => {
     document.body.classList.remove('menu-is-show')
   }
 
-  function _logout(e) {
+  function logout(e) {
     e.preventDefault()
 
-    logOut()
+    dispatch(logoutAction())
+    clearToken()
+    clearUser()
+    notification.success('Đăng xuất tài khoản thành công')
   }
 
   useEffect(() => {
@@ -57,9 +65,12 @@ export const Header = () => {
                 <div className="sub">
                   <Link to={PATH.profile.course}>Khoá học của tôi</Link>
                   <Link to={PATH.profile.index}>Thông tin tài khoản</Link>
-                  <a href="#" onClick={_logout}>
+                  <button
+                    className="block w-full p-5 text-right whitespace-nowrap font-[ab] transition-all ease-[ease] duration-[0.4s]  hover:bg-[#e0e0e0]"
+                    onClick={logout}
+                  >
                     Đăng xuất
-                  </a>
+                  </button>
                 </div>
               </div>
             ) : (

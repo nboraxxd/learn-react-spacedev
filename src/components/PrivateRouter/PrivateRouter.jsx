@@ -1,9 +1,10 @@
+import { userSelector } from '@/stores/selectors'
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { Navigate, Outlet } from 'react-router'
-import { useAuth } from '../AuthContext'
 
 export const PrivateRouter = ({ redirect = '/' }) => {
-  const { user } = useAuth()
+  const user = useSelector(userSelector)
 
   if (!user) return <Navigate to={redirect} />
 

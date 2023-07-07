@@ -1,13 +1,14 @@
-import { useAuth } from '@/components/AuthContext'
 import { Button } from '@/components/Button'
 import { Checkbox } from '@/components/Checkbox'
 import { Select } from '@/components/Select'
 import { PATH } from '@/config/path'
 import { useAsync } from '@/hooks/useAsync'
+import { userSelector } from '@/stores/selectors'
 import { handleError } from '@/utils/handleError'
 import { notification } from '@/utils/message'
 import moment from 'moment/moment'
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { Field } from '../../components/Field'
 import { Skeleton } from '../../components/Skeleton/Skeleton'
@@ -21,9 +22,9 @@ import Page404 from '../404'
 
 const Register = () => {
   const { id } = useParams()
-  const { user } = useAuth()
   const navigate = useNavigate()
   const { pathname } = useLocation()
+  const user = useSelector(userSelector)
 
   useScrollTop()
 
@@ -56,10 +57,10 @@ const Register = () => {
       payment: [required('Please choose a payment method')],
     },
     {
-      email: user.username,
-      name: user.name,
-      phone: user.phone,
-      facebook: user.fb,
+      email: user?.username,
+      name: user?.name,
+      phone: user?.phone,
+      facebook: user?.fb,
     }
   )
 
