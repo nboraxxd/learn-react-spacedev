@@ -1,11 +1,12 @@
+import { userSelector } from '@/stores/selectors'
 import React, { Suspense } from 'react'
+import { useSelector } from 'react-redux'
 import { Navigate, NavLink, Outlet } from 'react-router-dom'
-import { useAuth } from '../components/AuthContext'
 import { avatarDefault } from '../config'
 import { PATH } from '../config/path'
 
 const ProfileLayout = () => {
-  const { user } = useAuth()
+  const user = useSelector(userSelector)
 
   return (
     <main id="main" className="profile">

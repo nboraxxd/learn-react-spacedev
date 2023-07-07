@@ -1,11 +1,13 @@
+import { userSelector } from '@/stores/selectors'
 import React from 'react'
-import { Navigate, Outlet } from 'react-router'
-import { useAuth } from '../AuthContext'
+import { useSelector } from 'react-redux'
+import { Navigate, Outlet, useLocation } from 'react-router'
 
 export const AuthRouter = ({ redirect = '/' }) => {
-  const { user } = useAuth()
+  const user = useSelector(userSelector)
+  const { state } = useLocation()
 
-  if (user)
+  if (user && !state?.redirect)
     return (
       <div className="h-[560px]">
         <Navigate to={redirect} />

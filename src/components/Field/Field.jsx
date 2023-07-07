@@ -2,7 +2,6 @@ import React, { memo } from 'react'
 
 export const Field = memo(
   ({ label, required, type = 'text', renderInput, error, errorPosition = '230px', ...rest }) => {
-    console.log('field re-render', rest.value)
     return (
       <label className="relative">
         <p>

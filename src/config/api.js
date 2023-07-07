@@ -16,7 +16,7 @@ api.interceptors.response.use(
     try {
       if (error.response.status === 403 && error.response.data.error_code === 'TOKEN_EXPIRED') {
         const token = getToken()
-        console.log('🥴 ~ token:', token)
+        console.log('token:', token)
         const res = await authenticationService.refeshToken({
           refreshToken: token.refreshToken,
         })
