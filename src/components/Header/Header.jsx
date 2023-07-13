@@ -1,7 +1,6 @@
 import { logoutAction } from '@/stores/actions'
 import { userSelector } from '@/stores/selectors'
 import { notification } from '@/utils/message'
-import { clearToken, clearUser } from '@/utils/token'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, NavLink, useLocation } from 'react-router-dom'
@@ -22,12 +21,13 @@ export const Header = () => {
   }
 
   function logout(e) {
-    e.preventDefault()
-
-    dispatch(logoutAction())
-    clearToken()
-    clearUser()
-    notification.success('Đăng xuất tài khoản thành công')
+    dispatch(
+      logoutAction({
+        success: () => {
+          notification.success('Đăng xuất tài khoản thành công')
+        },
+      })
+    )
   }
 
   useEffect(() => {
