@@ -2,3 +2,4 @@
 // export const avataDefault = _avataDefault
 
 export { default as avatarDefault } from '../assets/images/default-avatar.png'
+export const ENV = import.meta.VITE_ENV

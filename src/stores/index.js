@@ -1,13 +1,14 @@
+import { ENV } from '@/config'
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import { combineReducers, createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import authReducer from './authReducer'
+import { authReducer } from './authReducer'
 
 const rootReducer = combineReducers({
   auth: authReducer,
 })
 
 const logMiddleware = (store) => (next) => (action) => {
-  // console.log(store, next, action)
   next(action)
 }
 
@@ -19,6 +20,10 @@ const thunk = (store) => (next) => (action) => {
   next(action)
 }
 
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(logMiddleware, thunk)))
+const store = configureStore({
+  reducer: { auth: authReducer },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logMiddleware),
+  dcevTools: ENV === 'development',
+})
 
 export default store
