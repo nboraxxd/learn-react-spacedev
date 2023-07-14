@@ -2,6 +2,7 @@ import actionTypes from './actionTypes'
 import { authenticationService } from '@/services/authentication.service'
 import { userService } from '@/services/user.service'
 import { clearToken, clearUser, setToken, setUser } from '@/utils/token'
+import { authActions } from './authReducer'
 
 export const signInAction = (data) => {
   return async (dispatch) => {
@@ -10,7 +11,7 @@ export const signInAction = (data) => {
       setToken(res.data)
 
       const user = await userService.getProfile()
-      dispatch(setUserAction(user.data))
+      dispatch(authActions.setUser(user.data))
       setUser(user.data)
 
       data?.success(user.data)
@@ -31,7 +32,7 @@ export const logoutAction = (data) => {
   return (dispatch) => {
     clearToken()
     clearUser()
-    dispatch({ type: actionTypes.LOGOUT_ACTION })
+    dispatch(authActions.logout())
     data?.success()
   }
 }

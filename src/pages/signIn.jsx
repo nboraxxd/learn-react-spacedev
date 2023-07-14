@@ -1,6 +1,7 @@
-import { signInAction } from '@/stores/actions'
+import { signInAction, signInThunkAction } from '@/stores/authReducer'
 import { handleError } from '@/utils/handleError'
 import { notification } from '@/utils/message'
+import { unwrapResult } from '@reduxjs/toolkit'
 import { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
@@ -17,25 +18,32 @@ const SignIn = () => {
   const { state } = useLocation()
 
   const signIn = useCallback(async (data) => {
-    return new Promise((resolve) => {
-      dispatch(
-        signInAction({
-          form: data,
-          success: (user) => {
-            notification.success('Đăng nhập tài khoản thành công')
-            if (state?.redirect) {
-              navigate(state.redirect)
-            }
-          },
-          error: (error) => {
-            handleError(error)
-          },
-          finally: () => {
-            resolve()
-          },
-        })
-      )
-    })
+    try {
+      const user = await dispatch(signInThunkAction(data)).unwrap()
+      notification.success(`Welcome back ${user.name}`)
+    } catch (error) {
+      handleError(error)
+    }
+
+    // return new Promise((resolve) => {
+    //   dispatch(
+    //     signInAction({
+    //       form: data,
+    //       success: () => {
+    //         notification.success('Đăng nhập tài khoản thành công')
+    //         if (state?.redirect) {
+    //           navigate(state.redirect)
+    //         }
+    //       },
+    //       error: (error) => {
+    //         handleError(error)
+    //       },
+    //       finally: () => {
+    //         resolve()
+    //       },
+    //     })
+    //   )
+    // })
   })
 
   // const getProfile = async () => {

@@ -1,4 +1,5 @@
-import { logoutAction } from '@/stores/actions'
+import { logoutAction } from '@/stores/authReducer'
+import { authActions } from '@/stores/authReducer'
 import { userSelector } from '@/stores/selectors'
 import { notification } from '@/utils/message'
 import React, { useEffect } from 'react'

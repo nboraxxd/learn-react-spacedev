@@ -13,6 +13,7 @@ import { setToken, setUser } from '@/utils/token'
 import { useDispatch } from 'react-redux'
 import { setUserAction } from '@/stores/actions'
 import { notification } from '@/utils/message'
+import { authActions } from '@/stores/authReducer'
 
 const ResetPassword = () => {
   const [searchParams] = useSearchParams()
@@ -60,7 +61,7 @@ const ResetPassword = () => {
     try {
       const user = await userService.getProfile()
 
-      dispatch(setUserAction(user.data))
+      dispatch(authActions.setUser(user.data))
       setUser(user.data)
       notification.success('Đăng nhập tài khoản thành công')
       if (state?.redirect) {
