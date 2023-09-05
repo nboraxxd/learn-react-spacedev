@@ -24,7 +24,7 @@ api.interceptors.response.use(
         return api(error.config)
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
 
     throw error

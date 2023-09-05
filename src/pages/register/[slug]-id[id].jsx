@@ -7,18 +7,18 @@ import { userSelector } from '@/stores/selectors'
 import { handleError } from '@/utils/handleError'
 import { notification } from '@/utils/message'
 import moment from 'moment/moment'
-import React, { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
-import { Field } from '../../components/Field'
-import { Skeleton } from '../../components/Skeleton/Skeleton'
-import { useFetch } from '../../hooks/useFetch'
-import { useForm } from '../../hooks/useForm'
-import { useScrollTop } from '../../hooks/useScrollTop'
-import { courseService } from '../../services/course.service'
-import { currency } from '../../utils/currency'
-import { regexp, required } from '../../utils/validate'
-import Page404 from '../404'
+import { Field } from '@/components/Field'
+import { Skeleton } from '@/components/Skeleton/Skeleton'
+import { useFetch } from '@/hooks/useFetch'
+import { useForm } from '@/hooks/useForm'
+import { useScrollTop } from '@/hooks/useScrollTop'
+import { courseService } from '@/services/course.service'
+import { currency } from '@/utils/currency'
+import { regexp, required } from '@/utils/validate'
+import Page404 from '@/pages/404'
 
 const Register = () => {
   const { id } = useParams()
@@ -33,7 +33,7 @@ const Register = () => {
       notification.warning('Vui lòng đăng nhập để đăng ký khoá học')
       navigate(PATH.signIn, { state: { redirect: pathname } })
     }
-  }, [user])
+  }, [navigate, pathname, user])
 
   const { values, register, validate } = useForm(
     {
@@ -49,6 +49,7 @@ const Register = () => {
       facebook: [
         required('Please enter your Facebook URL'),
         regexp(
+          // eslint-disable-next-line no-useless-escape
           /(?:https?:\/\/)?(?:www\.)?(mbasic.facebook|m\.facebook|facebook|fb)\.(com|me)\/(?:(?:\w\.)*#!\/)?(?:pages\/)?(?:[\w\-\.]*\/)*([\w\-\.]*)/,
           'Your Facebook URL is not in the correct format'
         ),

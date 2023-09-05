@@ -6,5 +6,6 @@ export const useScrollTop = (dependencyList = []) => {
       top: 0,
       behavior: 'smooth',
     })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, dependencyList)
 }

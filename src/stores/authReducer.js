@@ -76,7 +76,7 @@ export const signInThunkAction = createAsyncThunk('auth/login', async (data, thu
 
     return user.data
   } catch (error) {
-    thunkApi.rejectWithValue(err.response.data)
+    thunkApi.rejectWithValue(error.response.data)
     throw error?.response.data
   }
 })
